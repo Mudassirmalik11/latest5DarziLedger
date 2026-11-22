@@ -1,0 +1,236 @@
+{
+  "entities": {
+    "Shop": {
+      "title": "Shop",
+      "description": "Single tailoring shop profile and atomic sequential order counter owned by the authenticated Google account.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "description": "Firebase Auth UID of the shop owner." },
+        "shopName": { "type": "string", "description": "Display name of the tailoring shop." },
+        "contactNumber": { "type": "string", "description": "Shop phone number shown on thermal receipts." },
+        "email": { "type": "string", "description": "Shop owner Google email address." },
+        "nextOrderNumber": { "type": "integer", "description": "Next unassigned sequential order number starting at 1001." },
+        "version": { "type": "integer", "description": "Optimistic concurrency version counter." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": ["ownerUid", "shopName", "contactNumber", "email", "nextOrderNumber", "version", "createdAt", "updatedAt"]
+    },
+    "DeviceRegistration": {
+      "title": "DeviceRegistration",
+      "description": "Registered user device (phone or tablet). Each user (Owner or Staff) may have at most 1 AUTHORIZED device at a time.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "userUid": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "userRole": { "type": "string", "enum": ["OWNER", "STAFF"] },
+        "deviceName": { "type": "string" },
+        "deviceRole": { "type": "string", "enum": ["PHONE", "TABLET"] },
+        "status": { "type": "string", "enum": ["AUTHORIZED", "REVOKED"] },
+        "appVersion": { "type": "string" },
+        "registeredAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "lastSeenAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": ["ownerUid", "userUid", "userEmail", "userRole", "deviceName", "deviceRole", "status", "appVersion", "registeredAt", "lastSeenAt", "updatedAt"]
+    },
+    "ShopStaffUser": {
+      "title": "ShopStaffUser",
+      "description": "Staff user provisioned by the shop owner (up to 2 active users per shop).",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "staffUid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["STAFF"] },
+        "status": { "type": "string", "enum": ["ACTIVE", "REVOKED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "staffUid", "displayName", "email", "role", "status", "createdAt", "updatedAt"]
+    },
+    "StaffLink": {
+      "title": "StaffLink",
+      "description": "Maps a staff user's Firebase Auth UID to their owning shop.",
+      "type": "object",
+      "properties": {
+        "staffUid": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "REVOKED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["staffUid", "ownerUid", "displayName", "email", "status", "createdAt", "updatedAt"]
+    },
+    "OrderNumberReservation": {
+      "title": "OrderNumberReservation",
+      "description": "Pre-allocated range of sequential order numbers assigned to an authorized device.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "deviceId": { "type": "string" },
+        "startNumber": { "type": "integer" },
+        "endNumber": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": ["ownerUid", "deviceId", "startNumber", "endNumber", "createdAt", "updatedAt"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer profile with normalized Pakistani mobile number and soft-delete support.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "normalizedPhone": { "type": "string" },
+        "notes": { "type": "string" },
+        "version": { "type": "integer" },
+        "lastModifiedByDevice": { "type": "string" },
+        "deleted": { "type": "boolean" },
+        "deletedAtMillis": { "type": "integer" },
+        "createdAtEpochMillis": { "type": "integer" },
+        "updatedAtEpochMillis": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": ["ownerUid", "name", "phone", "normalizedPhone", "notes", "version", "lastModifiedByDevice", "deleted", "createdAtEpochMillis", "updatedAtEpochMillis", "createdAt", "updatedAt"]
+    },
+    "Measurement": {
+      "title": "Measurement",
+      "description": "Gents Shalwar Kameez measurement record in inches with style preferences.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "customerId": { "type": "string" },
+        "label": { "type": "string" },
+        "currentFlag": { "type": "boolean" },
+        "kameezLambai": { "type": "number" },
+        "tera": { "type": "number" },
+        "bazu": { "type": "number" },
+        "chati": { "type": "number" },
+        "kamar": { "type": "number" },
+        "gheraDaman": { "type": "number" },
+        "galaCollar": { "type": "number" },
+        "cuff": { "type": "number" },
+        "shalwarLambai": { "type": "number" },
+        "paincha": { "type": "number" },
+        "gheraAsan": { "type": "number" },
+        "neckStyle": { "type": "string", "enum": ["COLLAR", "BAN", "HALF_BAN", "ROUND"] },
+        "damanStyle": { "type": "string", "enum": ["GOL", "CHORASI"] },
+        "pocketStyle": { "type": "string", "enum": ["FRONT", "ONE_SIDE", "TWO_SIDE", "SHALWAR_POCKET"] },
+        "sleeveStyle": { "type": "string", "enum": ["PLAIN", "SINGLE_CUFF", "DOUBLE_CUFF", "STUDS"] },
+        "silaiStyle": { "type": "string", "enum": ["SINGLE", "DOUBLE", "CHAMAK_DHAGA"] },
+        "notes": { "type": "string" },
+        "version": { "type": "integer" },
+        "lastModifiedByDevice": { "type": "string" },
+        "deleted": { "type": "boolean" },
+        "createdAtEpochMillis": { "type": "integer" },
+        "updatedAtEpochMillis": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "ownerUid", "customerId", "label", "currentFlag",
+        "kameezLambai", "tera", "bazu", "chati", "kamar", "gheraDaman", "galaCollar", "cuff",
+        "shalwarLambai", "paincha", "gheraAsan",
+        "neckStyle", "damanStyle", "pocketStyle", "sleeveStyle", "silaiStyle",
+        "notes", "version", "lastModifiedByDevice", "deleted", "createdAtEpochMillis", "updatedAtEpochMillis",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Tailoring order with integer PKR billing and immutable measurement/style snapshot maps.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "customerId": { "type": "string" },
+        "orderNumber": { "type": "integer" },
+        "suitCount": { "type": "integer" },
+        "deliveryDateMillis": { "type": "integer" },
+        "totalAmountPkr": { "type": "integer" },
+        "paidAmountPkr": { "type": "integer" },
+        "remainingAmountPkr": { "type": "integer" },
+        "orderStatus": { "type": "string", "enum": ["PENDING", "READY", "DELIVERED", "CANCELLED"] },
+        "paymentStatus": { "type": "string", "enum": ["UNPAID", "PARTIAL", "PAID"] },
+        "measurementSnapshot": { "type": "object" },
+        "styleSnapshot": { "type": "object" },
+        "notes": { "type": "string" },
+        "version": { "type": "integer" },
+        "lastModifiedByDevice": { "type": "string" },
+        "deleted": { "type": "boolean" },
+        "createdAtEpochMillis": { "type": "integer" },
+        "updatedAtEpochMillis": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "ownerUid", "customerId", "suitCount", "deliveryDateMillis",
+        "totalAmountPkr", "paidAmountPkr", "remainingAmountPkr",
+        "orderStatus", "paymentStatus", "measurementSnapshot", "styleSnapshot",
+        "notes", "version", "lastModifiedByDevice", "deleted",
+        "createdAtEpochMillis", "updatedAtEpochMillis", "createdAt", "updatedAt"
+      ]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Append-only immutable PKR payment record linked to an order.",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string" },
+        "orderId": { "type": "string" },
+        "amountPkr": { "type": "integer" },
+        "paymentMethod": { "type": "string", "enum": ["CASH", "JAZZCASH", "EASYPAISA", "BANK_TRANSFER", "OTHER"] },
+        "note": { "type": "string" },
+        "deviceId": { "type": "string" },
+        "createdAtEpochMillis": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": ["ownerUid", "orderId", "amountPkr", "paymentMethod", "note", "deviceId", "createdAtEpochMillis", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/shops/{userId}": {
+      "schema": { "$ref": "#/entities/Shop" },
+      "description": "Shop profile and sequential order counter document scoped strictly to authenticated owner UID."
+    },
+    "/staff_links/{staffUid}": {
+      "schema": { "$ref": "#/entities/StaffLink" },
+      "description": "Lookup index mapping a staff Auth UID to their shop owner's UID."
+    },
+    "/shops/{userId}/staff_users/{staffUid}": {
+      "schema": { "$ref": "#/entities/ShopStaffUser" },
+      "description": "Staff logins created by the shop owner (max 2 active)."
+    },
+    "/shops/{userId}/devices/{deviceId}": {
+      "schema": { "$ref": "#/entities/DeviceRegistration" },
+      "description": "Registered devices authorized for this shop (1 active device per user)."
+    },
+    "/shops/{userId}/order_reservations/{reservationId}": {
+      "schema": { "$ref": "#/entities/OrderNumberReservation" },
+      "description": "Disjoint sequential #1001+ order number blocks reserved per authorized device."
+    },
+    "/shops/{userId}/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/Customer" },
+      "description": "Shop customer directory synchronized across authorized devices."
+    },
+    "/shops/{userId}/measurements/{measurementId}": {
+      "schema": { "$ref": "#/entities/Measurement" },
+      "description": "Customer Gents Shalwar Kameez measurement history."
+    },
+    "/shops/{userId}/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Tailoring orders with immutable snapshots and integer PKR billing."
+    },
+    "/shops/{userId}/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/Payment" },
+      "description": "Append-only immutable customer payment ledger entries."
+    }
+  }
+}

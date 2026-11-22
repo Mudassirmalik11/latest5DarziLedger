@@ -1,0 +1,6 @@
+{
+  "name": "Darzi Ledger",
+  "description": "Offline-first Pakistani gents tailoring shop management app for customers, Shalwar Kameez measurements, orders, payments, thermal printing, and two-device sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

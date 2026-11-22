@@ -1,0 +1,519 @@
+<resources>
+    <string name="app_name">Darzi Ledger</string>
+
+    <!-- Navigation Destinations -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_customers">Customers</string>
+    <string name="nav_orders">Orders</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Common & Status Labels (Localization-ready for Urdu) -->
+    <string name="status_offline_ready">Offline-First Ready</string>
+    <string name="status_local_ledger">Local Ledger Active</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_cancelled">Cancelled</string>
+    <string name="status_all">All</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_subtitle">Gents Shalwar Kameez Atelier Ledger</string>
+    <string name="dashboard_quick_actions">Quick Workspace Access</string>
+    <string name="dashboard_open_customers">Manage Customers</string>
+    <string name="dashboard_open_customers_desc">Search profiles, mobile numbers, and measurements</string>
+    <string name="dashboard_open_orders">Manage Orders</string>
+    <string name="dashboard_open_orders_desc">Track stitching status, delivery dates, and PKR balances</string>
+    <string name="dashboard_open_settings">Shop &amp; Printer Settings</string>
+    <string name="dashboard_open_settings_desc">Configure shop details, 58mm/80mm paper, and appearance</string>
+    <string name="dashboard_today_summary">Today\'s Ledger Summary</string>
+    <string name="dashboard_pending_orders">Pending Suits</string>
+    <string name="dashboard_due_today">Due Today</string>
+    <string name="dashboard_ready_pickup">Ready for Pickup</string>
+    <string name="dashboard_outstanding_pkr">Outstanding (PKR)</string>
+
+    <!-- Customers -->
+    <string name="customers_search_hint">Search by customer name or 03XX mobile</string>
+    <string name="customers_empty_title">No Customer Profiles Yet</string>
+    <string name="customers_empty_desc">Customer records, normalized Pakistani mobile numbers, and Shalwar Kameez measurements (in inches) will appear here.</string>
+
+    <!-- Orders -->
+    <string name="orders_search_hint">Search by order #1001 or customer</string>
+    <string name="orders_empty_title">No Tailoring Orders Yet</string>
+    <string name="orders_empty_desc">Sequential orders (#1001+), immutable measurement snapshots, and PKR payment ledgers will appear here.</string>
+
+    <!-- Settings -->
+    <string name="settings_shop_section">Shop Profile</string>
+    <string name="settings_shop_name_label">Shop Name</string>
+    <string name="settings_shop_contact_label">Shop Contact Number</string>
+    <string name="settings_save_shop">Save Shop Details</string>
+    <string name="settings_saved_feedback">Shop settings saved locally</string>
+    <string name="settings_printer_section">Thermal Printer Preferences</string>
+    <string name="settings_paper_width_label">Receipt Paper Width</string>
+    <string name="settings_paper_58mm">58 mm</string>
+    <string name="settings_paper_80mm">80 mm</string>
+    <string name="settings_appearance_section">Appearance</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_sync_section">Device &amp; Sync Architecture</string>
+    <string name="settings_currency_unit">Currency: PKR • Measurements: Inches</string>
+
+    <!-- Milestone 3: Customers & Measurements -->
+    <string name="customer_add_new">Add New Customer</string>
+    <string name="customer_edit">Edit Customer</string>
+    <string name="customer_name_label">Full Name</string>
+    <string name="customer_phone_label">Mobile Number (e.g. 0300-1234567)</string>
+    <string name="customer_notes_label">Address / Notes (Optional)</string>
+    <string name="customer_save">Save Customer</string>
+    <string name="customer_form_name_hint">Name *</string>
+    <string name="customer_form_phone_hint">Phone</string>
+    <string name="customer_form_address_hint">Address</string>
+    <string name="customer_form_custom_id_hint">Custom ID</string>
+    <string name="customer_form_save">Save</string>
+    <string name="customer_form_close_cd">Close</string>
+    <string name="customer_form_id_cd">Customer ID</string>
+    <string name="customer_duplicate_title">Customer Already Exists</string>
+    <string name="customer_duplicate_reuse">Open Existing Profile</string>
+    <string name="customer_duplicate_create_anyway">Create Separate Profile</string>
+    <string name="customer_profile_title">Customer Profile</string>
+    <string name="customer_current_measurements">Current Measurements (Inches)</string>
+    <string name="customer_no_measurements">No Shalwar Kameez measurements recorded yet.</string>
+    <string name="customer_add_measurements">Add Measurements</string>
+    <string name="customer_edit_measurements">Update Measurements</string>
+    <string name="customer_measurement_history">Measurement History</string>
+    <string name="customer_order_history">Order History</string>
+    <string name="customer_no_orders">No tailoring orders yet for this customer.</string>
+    <string name="customer_select_prompt">Select a customer from the list to view measurements and history.</string>
+
+    <!-- Kameez & Shalwar Fields -->
+    <string name="measurement_editor_title">Shalwar Kameez Measurements</string>
+    <string name="measurement_label_hint">Fit Label (e.g. Standard, Eid Suit)</string>
+    <string name="measurement_kameez_section">Kameez (Inches)</string>
+    <string name="measurement_shalwar_section">Shalwar (Inches)</string>
+    <string name="measurement_styles_section">Style Preferences</string>
+    <string name="meas_kameez_lambai">Lambai (Length)</string>
+    <string name="meas_tera">Tera (Shoulder)</string>
+    <string name="meas_bazu">Bazu (Sleeves)</string>
+    <string name="meas_chati">Chati (Chest)</string>
+    <string name="meas_kamar">Kamar (Waist)</string>
+    <string name="meas_ghera_daman">Ghera / Daman</string>
+    <string name="meas_gala_collar">Gala / Collar</string>
+    <string name="meas_cuff">Cuff</string>
+    <string name="meas_shalwar_lambai">Shalwar Lambai</string>
+    <string name="meas_paincha">Paincha (Bottom)</string>
+    <string name="meas_ghera_asan">Ghera / Asan (Seat)</string>
+    <string name="style_neck">Neck</string>
+    <string name="style_daman">Daman</string>
+    <string name="style_pockets">Pockets</string>
+    <string name="style_sleeves">Sleeves</string>
+    <string name="style_silai">Silai</string>
+    <string name="measurement_save">Save Measurements</string>
+    <string name="measurement_saved_feedback">Measurements saved to history</string>
+    <string name="measurement_reuse_action">Reuse as New</string>
+
+    <!-- Milestone 4: Orders, Payments & Dashboard -->
+    <string name="order_new_action">New Order</string>
+    <string name="order_create_title">Create Tailoring Order</string>
+    <string name="order_number_pending">Number Pending</string>
+    <string name="order_select_customer">Select Customer</string>
+    <string name="order_change_customer">Change Customer</string>
+    <string name="order_select_measurement">Select Measurement</string>
+    <string name="order_measurement_active_badge">Active</string>
+    <string name="order_suit_count">Number of Suits</string>
+    <string name="order_delivery_date">Delivery Date</string>
+    <string name="order_billing_section">Billing (PKR)</string>
+    <string name="order_total_bill_label">Total Bill (PKR)</string>
+    <string name="order_advance_label">Advance Payment (PKR)</string>
+    <string name="order_remaining_balance">Remaining Balance</string>
+    <string name="order_save_button">Confirm &amp; Create Order</string>
+    <string name="order_detail_title">Order Details</string>
+    <string name="order_status_workflow">Order Status</string>
+    <string name="order_mark_ready">Mark Ready</string>
+    <string name="order_mark_delivered">Mark Delivered</string>
+    <string name="order_reopen_pending">Back to Pending</string>
+    <string name="order_cancel_action">Cancel Order</string>
+    <string name="order_cancel_confirm_title">Cancel This Order?</string>
+    <string name="order_cancel_confirm_desc">The order will remain in history as Cancelled and will not be deleted.</string>
+    <string name="order_payments_section">Billing &amp; Payment History</string>
+    <string name="order_record_payment">Record Payment</string>
+    <string name="order_pay_remaining_one_tap">Settle Full Remaining</string>
+    <string name="order_payment_amount_label">Payment Amount (PKR)</string>
+    <string name="order_payment_method_label">Payment Method</string>
+    <string name="order_payment_note_label">Payment Note (Optional)</string>
+    <string name="order_snapshot_section">Saved Measurement &amp; Style Snapshot</string>
+    <string name="order_snapshot_immutable_hint">Captured at order creation. Customer profile edits will not alter this slip.</string>
+    <string name="order_update_customer_meas_toggle">Also save as customer\'s current measurements</string>
+    <string name="dashboard_search_hint">Quick search customer, phone, or #order</string>
+    <string name="dashboard_today_collection">Collected Today</string>
+    <string name="dashboard_recent_orders">Recent Orders</string>
+    <string name="dashboard_no_recent_orders">Create your first tailoring order to start tracking daily stitchings and PKR balances.</string>
+
+    <!-- Milestone 5: Firebase Auth & Device Authorization -->
+    <string name="auth_welcome_title">Darzi Ledger</string>
+    <string name="auth_welcome_subtitle">Shop owner creates the shop account and up to 2 staff logins. Each user works on 1 active device at a time.</string>
+    <string name="auth_badge_single_device">1 Device Per User</string>
+    <string name="auth_badge_shop_roles">Owner + 2 Users</string>
+    <string name="auth_tab_sign_in">Sign In</string>
+    <string name="auth_tab_sign_up">Owner Sign Up</string>
+    <string name="auth_name_label">Shop or Owner Name</string>
+    <string name="auth_email_label">Email Address</string>
+    <string name="auth_password_label">Password</string>
+    <string name="auth_confirm_password_label">Confirm Password</string>
+    <string name="auth_sign_in_email">Sign In with Email</string>
+    <string name="auth_sign_up_email">Create Shop Owner Account</string>
+    <string name="auth_forgot_password">Forgot Password?</string>
+    <string name="auth_or_divider">or</string>
+    <string name="auth_sign_in_google">Continue with Google</string>
+    <string name="auth_show_password">Show password</string>
+    <string name="auth_hide_password">Hide password</string>
+    <string name="auth_offline_note">Sign in once online to link this device to your shop. Authorized devices remain accessible offline.</string>
+    <string name="device_setup_title">Authorize This Device</string>
+    <string name="device_setup_subtitle">Each user (Owner or Staff) can use 1 active device at a time.</string>
+    <string name="device_name_label">Device Name (e.g. Counter Phone)</string>
+    <string name="device_role_label">Device Role</string>
+    <string name="device_role_phone">Phone</string>
+    <string name="device_role_tablet">Tablet</string>
+    <string name="device_authorize_button">Authorize This Device</string>
+    <string name="device_limit_title">1 of 1 Device Already Active</string>
+    <string name="device_limit_desc">Each user can only use 1 device at a time. Revoke your previous device below to switch to this device, or sign out.</string>
+    <string name="device_revoked_title">Device Access Revoked</string>
+    <string name="device_revoked_desc">This device was revoked. Re-authorize if your active slot is free, or sign out.</string>
+    <string name="staff_revoked_title">Shop Access Disabled</string>
+    <string name="staff_revoked_desc">Your staff login has been disabled by the shop owner. Ask the owner to re-enable your account or sign out.</string>
+    <string name="device_revoke_action">Revoke</string>
+    <string name="device_reauthorize_action">Re-authorize</string>
+    <string name="settings_account_section">Shop Account &amp; Devices</string>
+    <string name="settings_sign_out">Sign Out</string>
+    <string name="role_owner_badge">Shop Owner</string>
+    <string name="role_staff_badge">Staff User</string>
+    <string name="settings_single_device_policy">Policy: 1 active device per user at a time.</string>
+    <string name="settings_shop_owner_only_hint">Only the shop owner can update shop profile details.</string>
+    <string name="settings_shop_users_section">Shop Users (Max 2)</string>
+    <string name="settings_shop_users_count_pill">%1$d of %2$d Active</string>
+    <string name="settings_shop_users_desc">Create up to 2 user logins with unique email &amp; password so staff can sign in to this shop. Each user can use 1 device at a time.</string>
+    <string name="settings_shop_users_loading">Loading shop users…</string>
+    <string name="settings_shop_users_empty">No staff users added yet. Tap Add Shop User to create a login for staff.</string>
+    <string name="settings_add_staff_user">Add Shop User</string>
+    <string name="settings_add_staff_user_limit_reached">Maximum 2 Active Users Reached</string>
+    <string name="staff_status_active">Active</string>
+    <string name="staff_status_disabled">Disabled</string>
+    <string name="staff_active_device_label">Active device: %1$s</string>
+    <string name="staff_no_active_device">No active device</string>
+    <string name="staff_action_disable">Disable</string>
+    <string name="staff_action_reenable">Re-enable</string>
+    <string name="staff_add_dialog_title">Add Shop User</string>
+    <string name="staff_add_dialog_desc">Enter a unique email and password for this user. Share these credentials with them so they can sign in to this shop.</string>
+    <string name="staff_name_label">User Full Name</string>
+    <string name="staff_create_action">Create User</string>
+    <string name="staff_credentials_dialog_title">User Login Ready</string>
+    <string name="staff_credentials_dialog_desc">Share this email and password with the user. For security, this password is not shown again after closing.</string>
+    <string name="staff_credentials_copy_payload">Darzi Ledger Login\nName: %1$s\nEmail: %2$s\nPassword: %3$s</string>
+    <string name="staff_credentials_copy_button">Copy Details</string>
+    <string name="staff_credentials_copied">Login credentials copied to clipboard.</string>
+
+    <!-- Milestone 6: Cloud Sync & Conflicts -->
+    <string name="sync_screen_title">Cloud Sync &amp; Conflicts</string>
+    <string name="sync_now_button">Sync Now</string>
+    <string name="sync_reserve_block_button">Reserve #1001+ Block</string>
+    <string name="sync_status_synced">Synced</string>
+    <string name="sync_status_syncing">Syncing…</string>
+    <string name="sync_status_offline">Offline</string>
+    <string name="sync_status_pending">Pending (%1$d)</string>
+    <string name="sync_status_conflict">Conflict (%1$d)</string>
+    <string name="sync_conflicts_section">Conflicts Requiring Review</string>
+    <string name="sync_conflicts_empty">No sync conflicts detected. Both devices are in sync.</string>
+    <string name="sync_keep_local">Keep Local</string>
+    <string name="sync_use_cloud">Use Cloud</string>
+    <string name="sync_reservations_section">Order Number Blocks (#1001+)</string>
+    <string name="sync_reservations_empty">No offline order number blocks reserved yet. Tap Sync Now online to reserve 50 sequential order numbers for this device.</string>
+    <string name="settings_sync_center_title">Cloud Synchronization</string>
+    <string name="settings_open_sync_center">Open Sync &amp; Conflicts</string>
+
+    <!-- Milestone 7: Bluetooth Thermal Printing -->
+    <string name="printer_configured_label">Default Printer: %1$s (%2$s)</string>
+    <string name="printer_none_configured">No Bluetooth thermal printer selected yet.</string>
+    <string name="printer_select_button">Select Bluetooth Printer</string>
+    <string name="printer_test_print_button">Test Print</string>
+    <string name="printer_scan_nearby">Scan Nearby</string>
+    <string name="printer_open_bt_settings">Bluetooth Settings</string>
+    <string name="printer_picker_title">Bluetooth Thermal Printers</string>
+    <string name="printer_permission_required">Bluetooth permission is required to list and connect to paired thermal printers.</string>
+    <string name="order_printing_section">Thermal Receipt &amp; Karigar Slip</string>
+    <string name="order_print_customer">Print Customer Receipt</string>
+    <string name="order_print_karigar">Print Karigar Slip</string>
+    <string name="order_preview_slip">Preview Slip</string>
+
+    <!-- Milestone 8: JSON Backup & Restore -->
+    <string name="settings_backup_section">Data Backup &amp; Restore</string>
+    <string name="settings_backup_desc">Export all customers, measurements, orders, and PKR payments to a JSON file or restore from a saved backup.</string>
+    <string name="settings_export_backup">Export JSON Backup</string>
+    <string name="settings_restore_backup">Restore from Backup</string>
+    <string name="backup_restore_dialog_title">Restore Shop Backup?</string>
+    <string name="backup_restore_confirm_button">Restore Backup</string>
+
+    <string name="order_preview_customer_button">Preview Customer</string>
+    <string name="order_preview_karigar_button">Preview Karigar</string>
+    <string name="order_preview_customer_title">Customer Receipt Preview</string>
+    <string name="order_preview_karigar_title">Karigar Workshop Slip Preview</string>
+    <string name="action_print_now">Print Now</string>
+
+    <!-- Language & Localization -->
+    <string name="settings_language_label">App Language</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_urdu">اردو</string>
+    <string name="settings_language_hint">App screens, receipt previews, and printed slips follow your selected language.</string>
+    <string name="settings_language_owner_only_hint">Only the shop owner can change the app language.</string>
+    <string name="settings_sync_center_desc">Inspect pending outbox changes, #1001+ device number blocks, and multi-device conflicts.</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_close">Close</string>
+
+    <!-- Dashboard Analytics (Daily / Weekly / Monthly / Yearly) -->
+    <string name="analytics_section_title">Shop Analytics</string>
+    <string name="analytics_daily">Daily</string>
+    <string name="analytics_weekly">Weekly</string>
+    <string name="analytics_monthly">Monthly</string>
+    <string name="analytics_yearly">Yearly</string>
+    <string name="analytics_period_today">Today</string>
+    <string name="analytics_period_week">This Week</string>
+    <string name="analytics_period_month">This Month</string>
+    <string name="analytics_period_year">This Year</string>
+    <string name="analytics_collected_label">Collected</string>
+    <string name="analytics_booked_label">Booked Sales</string>
+    <string name="analytics_orders_label">Orders</string>
+    <string name="analytics_suits_label">Suits</string>
+    <string name="analytics_delivered_count">%1$d delivered</string>
+    <string name="analytics_trend_title">Collection vs. Booked Trend</string>
+    <string name="analytics_empty_hint">No orders or payments recorded in this period yet.</string>
+    <string name="analytics_bucket_night">Night</string>
+    <string name="analytics_bucket_morning">Morn</string>
+    <string name="analytics_bucket_afternoon">Aftn</string>
+    <string name="analytics_bucket_evening">Eve</string>
+    <string name="analytics_week_prefix">W%1$d</string>
+    <string name="dashboard_all_orders">All Orders</string>
+    <string name="dashboard_matching_customers">Matching Customers</string>
+    <string name="dashboard_matching_orders">Matching Orders</string>
+    <string name="dashboard_clear_search">Clear search</string>
+    <string name="dashboard_customers_pill">%1$d Customers • %2$s</string>
+
+    <!-- Landing Grid, Drawer & Payments Sheet -->
+    <string name="dashboard_tile_customers">Customers</string>
+    <string name="dashboard_tile_payments">Payments</string>
+    <string name="dashboard_tile_orders">Orders</string>
+    <string name="dashboard_tile_ledger">Ledger</string>
+    <string name="dashboard_action_add_customer">+ Customer</string>
+    <string name="dashboard_action_add_order">+ Order</string>
+    <string name="dashboard_menu_open">Open navigation menu</string>
+    <string name="drawer_nav_analytics">Ledger &amp; Analytics</string>
+    <string name="drawer_nav_payments">Payments &amp; Balances</string>
+    <string name="drawer_nav_sync">Cloud Sync &amp; Conflicts</string>
+    <string name="payments_sheet_title">Payments &amp; Balances</string>
+    <string name="payments_filter_balance_due">Balance Due</string>
+    <string name="payments_filter_paid">Payments Received</string>
+    <string name="payments_empty_due">All active orders are settled.</string>
+    <string name="payments_empty_paid">No payments recorded yet.</string>
+    <string name="payments_tap_to_record">Tap any order to record or settle PKR payment</string>
+    <string name="payments_paid_of_total">Paid %1$s of %2$s</string>
+    <string name="payments_due_amount">Due: %1$s</string>
+
+    <!-- Customers Screen Redesign -->
+    <string name="customers_search_simple_hint">Search customers…</string>
+    <string name="customers_filter_button">Filter</string>
+    <string name="customers_search_by_label">Search by</string>
+    <string name="customers_scope_all">All</string>
+    <string name="customers_scope_name">Name</string>
+    <string name="customers_scope_phone">Phone</string>
+    <string name="customers_scope_id">ID</string>
+    <string name="customers_scope_address">Address</string>
+    <string name="customers_total_count">Total Customers: %1$d</string>
+    <string name="customers_id_badge">ID: %1$s</string>
+    <string name="customers_sort_newest">Newest First</string>
+    <string name="customers_sort_oldest">Oldest First</string>
+    <string name="customers_sort_name">Name (A–Z)</string>
+    <string name="customers_filter_with_address">With Address Only</string>
+
+    <!-- Orders & Order Details Redesign -->
+    <string name="orders_search_simple_hint">Search Orders…</string>
+    <string name="orders_filters_button">Filters</string>
+    <string name="orders_total_count">Total orders: %1$d</string>
+    <string name="orders_order_id_label">ORDER ID: %1$s</string>
+    <string name="orders_customer_id_label">CUSTOMER ID: %1$s</string>
+    <string name="orders_metric_quantity">Quantity</string>
+    <string name="orders_metric_cost">Cost</string>
+    <string name="orders_metric_pending_amount">Pending Amount</string>
+    <string name="orders_metric_delivery_date">Delivery date</string>
+    <string name="orders_filter_pending_balance">Pending Balance Only</string>
+    <string name="orders_sort_delivery">Soonest Delivery</string>
+
+    <string name="order_detail_id_pill">ID: %1$s</string>
+    <string name="order_detail_date_created">Date Created</string>
+    <string name="order_detail_delivery_date">Delivery Date</string>
+    <string name="order_detail_quantity">Quantity</string>
+    <string name="order_detail_pending_amount">Pending Amount</string>
+    <string name="order_detail_total_cost">Total Cost</string>
+    <string name="order_detail_status_label">Status</string>
+    <string name="order_detail_payment_not_paid">Not Paid</string>
+    <string name="order_detail_payment_partial">Partial</string>
+    <string name="order_detail_payment_paid">Paid</string>
+    <string name="order_detail_additional_note">Additional Note</string>
+    <string name="order_detail_no_note">No additional note</string>
+    <string name="order_detail_actions_title">Actions</string>
+    <string name="order_action_mark_paid">Mark as Paid</string>
+    <string name="order_action_partial_payment">Partial Payment</string>
+    <string name="order_action_delete">Delete</string>
+    <string name="order_action_view_receipt">View Receipt</string>
+    <string name="order_tab_payments">Payments</string>
+    <string name="order_tab_measurement">Measurement</string>
+    <string name="order_tab_media">Media</string>
+    <string name="order_payment_item_amount">Amount: %1$s</string>
+    <string name="order_payment_item_date">Payment Date: %1$s</string>
+    <string name="order_payments_empty">No payments recorded for this order yet.</string>
+    <string name="order_media_add_photo">Add Photo</string>
+    <string name="order_media_empty">No fabric or design photos attached yet.</string>
+    <string name="order_media_remove_cd">Remove photo</string>
+    <string name="order_delete_confirm_title">Delete or Cancel Order?</string>
+    <string name="order_delete_confirm_desc">Delete removes this order from your active ledger. You can also mark it Cancelled to keep it in history.</string>
+    <string name="order_delete_forever_button">Delete Order</string>
+    <string name="order_keep_button">Keep Order</string>
+
+    <!-- Customer Detail & Measurement Options Redesign -->
+    <string name="customer_detail_topbar_title">Customer</string>
+    <string name="customer_since_label">Customer Since: %1$s</string>
+    <string name="customer_action_call">Call</string>
+    <string name="customer_action_whatsapp">Whatsapp</string>
+    <string name="customer_tab_measurements">MEASUREMENTS</string>
+    <string name="customer_tab_payments">PAYMENTS</string>
+    <string name="customer_tab_orders">ORDERS</string>
+    <string name="customer_measurements_section">Measurements</string>
+    <string name="measurement_type_male_shalwar_kameez">Male Shalwar Kameez</string>
+    <string name="measurement_label_kameez_length">Kameez Length</string>
+    <string name="measurement_label_shoulder">Shoulder</string>
+    <string name="measurement_label_chest">Chest</string>
+    <string name="measurement_label_sleeves">Sleeves</string>
+    <string name="measurement_label_waist">Waist</string>
+    <string name="measurement_label_ghera_daman">Ghera / Daman</string>
+    <string name="measurement_label_collar_gala">Gala / Collar</string>
+    <string name="measurement_label_cuff">Cuff</string>
+    <string name="measurement_label_shalwar">Shalwar</string>
+    <string name="measurement_label_paincha">Paincha</string>
+    <string name="measurement_label_asan">Asan</string>
+    <string name="measurement_options_title">Options</string>
+    <string name="measurement_option_edit">Edit</string>
+    <string name="measurement_option_save">Save</string>
+    <string name="measurement_option_print">Print</string>
+    <string name="measurement_option_delete">Delete</string>
+    <string name="measurement_saved_active_msg">Saved as customer active measurement.</string>
+    <string name="measurement_delete_confirm_title">Delete Measurement?</string>
+    <string name="measurement_delete_confirm_desc">This removes the measurement card from this customer profile. Existing orders remain unchanged.</string>
+    <string name="measurement_delete_confirm_button">Delete</string>
+    <string name="measurement_preview_title">Measurement Slip Preview</string>
+    <string name="customer_delete_action">Delete Customer</string>
+    <string name="customer_delete_confirm_title">Delete Customer?</string>
+    <string name="customer_delete_confirm_desc">This customer will be removed from your active directory.</string>
+    <string name="customer_payments_empty">No payments recorded across this customer\'s orders yet.</string>
+    <string name="customer_payment_order_pill">Order #%1$s</string>
+    <string name="customer_whatsapp_error">Unable to open WhatsApp on this device.</string>
+    <string name="customer_more_options_cd">More options</string>
+    <string name="style_opt_collar">Collar</string>
+    <string name="style_opt_ban">Ban</string>
+    <string name="style_opt_half_ban">Half-Ban</string>
+    <string name="style_opt_round">Round</string>
+    <string name="style_opt_daman_gol">Gol Daman</string>
+    <string name="style_opt_daman_chorasi">Chorasi Daman</string>
+    <string name="style_opt_pocket_front">Front Pocket</string>
+    <string name="style_opt_pocket_one_side">One Side Pocket</string>
+    <string name="style_opt_pocket_two_side">Double Side Pocket</string>
+    <string name="style_opt_pocket_shalwar">Shalwar Pocket</string>
+    <string name="style_opt_pocket_none">No Pocket</string>
+    <string name="style_opt_sleeve_plain">Plain Sleeves</string>
+    <string name="style_opt_sleeve_single_cuff">Single Cuff</string>
+    <string name="style_opt_sleeve_double_cuff">Double Cuff</string>
+    <string name="style_opt_sleeve_studs">Stud Buttonhole</string>
+    <string name="style_opt_silai_single">Single Silai</string>
+    <string name="style_opt_silai_double">Double Silai</string>
+    <string name="style_opt_silai_chamak">Chamak Dhaga</string>
+
+    <!-- Full Localization Coverage -->
+    <string name="action_back">Back</string>
+    <string name="action_ok">OK</string>
+    <string name="action_retry">Retry</string>
+    <string name="currency_pkr_prefix">Rs.\u0020</string>
+    <string name="unit_inches">Inches</string>
+    <string name="unit_in_short">in</string>
+
+    <string name="payment_method_cash">Cash</string>
+    <string name="payment_method_jazzcash">JazzCash</string>
+    <string name="payment_method_easypaisa">EasyPaisa</string>
+    <string name="payment_method_bank_transfer">Bank Transfer</string>
+    <string name="payment_method_other">Other</string>
+
+    <string name="customer_duplicate_desc_primary">%1$s (%2$s) is already registered with this mobile number.</string>
+    <string name="customer_duplicate_desc_secondary">Reuse the existing profile to keep all measurements and order history together, or explicitly create a separate profile.</string>
+
+    <string name="order_loaded_label_meas">\u0020• %1$s loaded</string>
+    <string name="order_loaded_saved_meas">\u0020• Saved measurements loaded</string>
+    <string name="order_loaded_no_meas">\u0020• No saved measurements yet</string>
+    <string name="order_decrease_suits_cd">Decrease suits</string>
+    <string name="order_increase_suits_cd">Increase suits</string>
+    <string name="order_preset_tomorrow">Tomorrow</string>
+    <string name="order_preset_plus_3_days">+3 Days</string>
+    <string name="order_preset_plus_7_days">+7 Days</string>
+    <string name="order_calendar_button">Calendar</string>
+    <string name="order_pick_customer_search_hint">Search name or phone</string>
+    <string name="order_payment_outstanding_balance">Outstanding balance: %1$s</string>
+    <string name="order_payment_save_button">Save Payment</string>
+
+    <string name="printer_status_not_set">Not Set</string>
+    <string name="order_printer_configured">Printer: %1$s (%2$s)</string>
+    <string name="order_printer_unconfigured">Configure a Bluetooth printer in Settings to print directly. Preview slips anytime.</string>
+
+    <string name="settings_device_status_checking">Checking</string>
+    <string name="settings_device_status_unregistered">Unregistered</string>
+    <string name="settings_device_status_pending">Pending</string>
+    <string name="settings_device_status_authorized">Authorized</string>
+    <string name="settings_device_status_revoked">Revoked</string>
+    <string name="settings_devices_loading">Loading shop devices…</string>
+    <string name="settings_devices_empty">No cloud devices registered yet.</string>
+    <string name="backup_restore_shop_name">Shop: %1$s</string>
+    <string name="backup_restore_exported_at">Exported: %1$s</string>
+    <string name="backup_restore_counts">• %1$d Customers\n• %2$d Measurements\n• %3$d Orders\n• %4$d Payments</string>
+    <string name="backup_restore_safety_note">Records are validated and restored transactionally so existing data is never left half-written.</string>
+    <string name="staff_credentials_email">Email: %1$s</string>
+    <string name="staff_credentials_password">Password: %1$s</string>
+    <string name="printer_none_found_hint">No paired printers found. Pair your thermal printer in Android Bluetooth Settings or tap Scan Nearby.</string>
+    <string name="printer_pill_selected">Selected</string>
+    <string name="printer_pill_paired">Paired</string>
+    <string name="printer_pill_nearby">Nearby</string>
+
+    <string name="sync_network_online">Online</string>
+    <string name="sync_network_offline">Offline Mode</string>
+    <string name="sync_pending_local_changes">Pending local changes: %1$d</string>
+    <string name="sync_last_synced_at">Last synced: %1$s</string>
+    <string name="sync_last_synced_never">Last synced: Not synced yet</string>
+    <string name="sync_block_exhausted">Exhausted</string>
+    <string name="sync_block_next_available">Next available: #%1$d</string>
+    <string name="sync_block_remaining">%1$d left</string>
+    <string name="sync_conflict_title">%1$s Conflict</string>
+    <string name="sync_entity_shop">Shop</string>
+    <string name="sync_entity_customer">Customer</string>
+    <string name="sync_entity_measurement">Measurement</string>
+    <string name="sync_entity_order">Order</string>
+    <string name="sync_entity_payment">Payment</string>
+    <string name="sync_entity_device">Device</string>
+    <string name="sync_entity_reservation">Order Block</string>
+
+    <string name="device_checking_auth">Verifying shop device authorization…</string>
+    <string name="device_verification_failed">Verification Failed</string>
+    <string name="device_this_device_suffix">\u0020(This Device)</string>
+    <string name="device_user_role_staff">Staff</string>
+    <string name="device_user_role_owner">Owner</string>
+    <string name="device_status_authorized">Authorized</string>
+    <string name="device_status_revoked">Revoked</string>
+
+    <string name="auth_error_invalid_email">Please enter a valid email address.</string>
+    <string name="auth_error_empty_password">Please enter your password.</string>
+    <string name="auth_error_short_password">Password must be at least 6 characters.</string>
+    <string name="auth_error_passwords_mismatch">Passwords do not match.</string>
+    <string name="auth_error_reset_email_required">Enter your email address above first to receive a reset link.</string>
+    <string name="auth_info_reset_sent">Password reset link sent to %1$s.</string>
+    <string name="auth_error_reset_failed">Could not send password reset email.</string>
+</resources>

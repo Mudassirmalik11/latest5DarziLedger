@@ -1,0 +1,578 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny global safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isShopOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isActiveStaff(userId) {
+      return isSignedIn() &&
+             exists(/databases/$(database)/documents/shops/$(userId)/staff_users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/shops/$(userId)/staff_users/$(request.auth.uid)).data.status == 'ACTIVE' &&
+             exists(/databases/$(database)/documents/staff_links/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/staff_links/$(request.auth.uid)).data.ownerUid == userId &&
+             get(/databases/$(database)/documents/staff_links/$(request.auth.uid)).data.status == 'ACTIVE';
+    }
+
+    function isShopMember(userId) {
+      return isShopOwner(userId) || isActiveStaff(userId);
+    }
+
+    function shopExists(userId) {
+      return exists(/databases/$(database)/documents/shops/$(userId));
+    }
+
+    function isAuthorizedDevice(userId, deviceId) {
+      return isValidId(deviceId) &&
+             exists(/databases/$(database)/documents/shops/$(userId)/devices/$(deviceId)) &&
+             get(/databases/$(database)/documents/shops/$(userId)/devices/$(deviceId)).data.status == 'AUTHORIZED' &&
+             (
+               get(/databases/$(database)/documents/shops/$(userId)/devices/$(deviceId)).data.userUid == request.auth.uid ||
+               (!('userUid' in get(/databases/$(database)/documents/shops/$(userId)/devices/$(deviceId)).data) && isShopOwner(userId))
+             );
+    }
+
+    function isValidInchValue(val) {
+      return (val is int || val is float) && val > 0 && val <= 200;
+    }
+
+    function isValidCuffValue(val) {
+      return (val is int || val is float) && val >= 0 && val <= 200;
+    }
+
+    function isValidShop(data, userId) {
+      return data.ownerUid == userId &&
+             data.shopName is string && data.shopName.size() >= 1 && data.shopName.size() <= 80 &&
+             data.contactNumber is string && data.contactNumber.size() <= 25 &&
+             data.email is string && data.email.size() <= 120 &&
+             data.nextOrderNumber is int && data.nextOrderNumber >= 1001 &&
+             data.version is int && data.version >= 1 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidDevice(data, userId) {
+      return data.ownerUid == userId &&
+             (!('userUid' in data) || isValidId(data.userUid)) &&
+             (!('userEmail' in data) || (data.userEmail is string && data.userEmail.size() <= 120)) &&
+             (!('userRole' in data) || data.userRole in ['OWNER', 'STAFF']) &&
+             data.deviceName is string && data.deviceName.size() >= 1 && data.deviceName.size() <= 60 &&
+             data.deviceRole in ['PHONE', 'TABLET'] &&
+             data.status in ['AUTHORIZED', 'REVOKED'] &&
+             data.appVersion is string && data.appVersion.size() >= 1 && data.appVersion.size() <= 20 &&
+             data.registeredAt is timestamp && data.registeredAt <= request.time &&
+             data.lastSeenAt is timestamp && data.lastSeenAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidStaffUser(data, userId, staffUid) {
+      return data.ownerUid == userId &&
+             data.staffUid == staffUid &&
+             isValidId(staffUid) &&
+             staffUid != userId &&
+             data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 60 &&
+             data.email is string && data.email.size() >= 3 && data.email.size() <= 120 &&
+             data.role == 'STAFF' &&
+             data.status in ['ACTIVE', 'REVOKED'] &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidStaffLink(data, staffUid) {
+      return isValidId(staffUid) &&
+             data.staffUid == staffUid &&
+             isValidId(data.ownerUid) &&
+             data.ownerUid != staffUid &&
+             data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 60 &&
+             data.email is string && data.email.size() >= 3 && data.email.size() <= 120 &&
+             data.status in ['ACTIVE', 'REVOKED'] &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidReservation(data, userId) {
+      return data.ownerUid == userId &&
+             isValidId(data.deviceId) &&
+             data.startNumber is int && data.startNumber >= 1001 &&
+             data.endNumber is int && data.endNumber >= data.startNumber &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidCustomer(data, userId) {
+      return data.ownerUid == userId &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 100 &&
+             data.phone is string && data.phone.size() <= 30 &&
+             data.normalizedPhone is string && data.normalizedPhone.size() <= 30 &&
+             data.notes is string && data.notes.size() <= 500 &&
+             (!('customId' in data) || (data.customId is string && data.customId.size() <= 40)) &&
+             data.version is int && data.version >= 1 &&
+             isValidId(data.lastModifiedByDevice) &&
+             data.deleted is bool &&
+             (!('deletedAtMillis' in data) || (data.deletedAtMillis is int && data.deletedAtMillis >= 0)) &&
+             data.createdAtEpochMillis is int && data.createdAtEpochMillis >= 0 &&
+             data.updatedAtEpochMillis is int && data.updatedAtEpochMillis >= 0 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidMeasurement(data, userId) {
+      return data.ownerUid == userId &&
+             isValidId(data.customerId) &&
+             data.label is string && data.label.size() >= 1 && data.label.size() <= 60 &&
+             data.currentFlag is bool &&
+             isValidInchValue(data.kameezLambai) &&
+             isValidInchValue(data.tera) &&
+             isValidInchValue(data.bazu) &&
+             isValidInchValue(data.chati) &&
+             isValidInchValue(data.kamar) &&
+             isValidInchValue(data.gheraDaman) &&
+             isValidInchValue(data.galaCollar) &&
+             isValidCuffValue(data.cuff) &&
+             isValidInchValue(data.shalwarLambai) &&
+             isValidInchValue(data.paincha) &&
+             isValidInchValue(data.gheraAsan) &&
+             data.neckStyle in ['COLLAR', 'BAN', 'HALF_BAN', 'ROUND'] &&
+             data.damanStyle in ['GOL', 'CHORASI'] &&
+             isValidPocketStyle(data.pocketStyle) &&
+             data.sleeveStyle in ['PLAIN', 'SINGLE_CUFF', 'DOUBLE_CUFF', 'STUDS'] &&
+             data.silaiStyle in ['SINGLE', 'DOUBLE', 'CHAMAK_DHAGA'] &&
+             data.notes is string && data.notes.size() <= 500 &&
+             data.version is int && data.version >= 1 &&
+             isValidId(data.lastModifiedByDevice) &&
+             data.deleted is bool &&
+             data.createdAtEpochMillis is int && data.createdAtEpochMillis >= 0 &&
+             data.updatedAtEpochMillis is int && data.updatedAtEpochMillis >= 0 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidMeasurementSnapshot(snap) {
+      return snap is map &&
+             snap.keys().hasAll([
+               'kameezLambai', 'tera', 'bazu', 'chati', 'kamar', 'gheraDaman',
+               'galaCollar', 'cuff', 'shalwarLambai', 'paincha', 'gheraAsan', 'notes'
+             ]) &&
+             snap.keys().hasOnly([
+               'sourceMeasurementId', 'kameezLambai', 'tera', 'bazu', 'chati', 'kamar',
+               'gheraDaman', 'galaCollar', 'cuff', 'shalwarLambai', 'paincha', 'gheraAsan', 'notes'
+             ]) &&
+             (!('sourceMeasurementId' in snap) || (snap.sourceMeasurementId is string && snap.sourceMeasurementId.size() <= 128)) &&
+             isValidInchValue(snap.kameezLambai) &&
+             isValidInchValue(snap.tera) &&
+             isValidInchValue(snap.bazu) &&
+             isValidInchValue(snap.chati) &&
+             isValidInchValue(snap.kamar) &&
+             isValidInchValue(snap.gheraDaman) &&
+             isValidInchValue(snap.galaCollar) &&
+             isValidCuffValue(snap.cuff) &&
+             isValidInchValue(snap.shalwarLambai) &&
+             isValidInchValue(snap.paincha) &&
+             isValidInchValue(snap.gheraAsan) &&
+             snap.notes is string && snap.notes.size() <= 500;
+    }
+
+    function isValidPocketStyle(value) {
+      return value is string &&
+             value.size() <= 80 &&
+             value.matches('^$|^(FRONT|ONE_SIDE|TWO_SIDE|SHALWAR_POCKET)(,(FRONT|ONE_SIDE|TWO_SIDE|SHALWAR_POCKET))*$');
+    }
+
+    function isValidStyleSnapshot(snap) {
+      return snap is map &&
+             snap.keys().hasAll(['neckStyle', 'damanStyle', 'pocketStyle', 'sleeveStyle', 'silaiStyle']) &&
+             snap.keys().hasOnly(['neckStyle', 'damanStyle', 'pocketStyle', 'sleeveStyle', 'silaiStyle']) &&
+             snap.neckStyle in ['COLLAR', 'BAN', 'HALF_BAN', 'ROUND'] &&
+             snap.damanStyle in ['GOL', 'CHORASI'] &&
+             isValidPocketStyle(snap.pocketStyle) &&
+             snap.sleeveStyle in ['PLAIN', 'SINGLE_CUFF', 'DOUBLE_CUFF', 'STUDS'] &&
+             snap.silaiStyle in ['SINGLE', 'DOUBLE', 'CHAMAK_DHAGA'];
+    }
+
+    function isValidOrder(data, userId) {
+      return data.ownerUid == userId &&
+             isValidId(data.customerId) &&
+             (!('orderNumber' in data) || (data.orderNumber is int && data.orderNumber >= 1001)) &&
+             data.suitCount is int && data.suitCount >= 1 && data.suitCount <= 100 &&
+             data.deliveryDateMillis is int && data.deliveryDateMillis >= 0 &&
+             data.totalAmountPkr is int && data.totalAmountPkr >= 0 &&
+             data.paidAmountPkr is int && data.paidAmountPkr >= 0 && data.paidAmountPkr <= data.totalAmountPkr &&
+             data.remainingAmountPkr is int && data.remainingAmountPkr == (data.totalAmountPkr - data.paidAmountPkr) &&
+             data.orderStatus in ['PENDING', 'READY', 'DELIVERED', 'CANCELLED'] &&
+             data.paymentStatus in ['UNPAID', 'PARTIAL', 'PAID'] &&
+             isValidMeasurementSnapshot(data.measurementSnapshot) &&
+             isValidStyleSnapshot(data.styleSnapshot) &&
+             data.notes is string && data.notes.size() <= 500 &&
+             data.version is int && data.version >= 1 &&
+             isValidId(data.lastModifiedByDevice) &&
+             data.deleted is bool &&
+             data.createdAtEpochMillis is int && data.createdAtEpochMillis >= 0 &&
+             data.updatedAtEpochMillis is int && data.updatedAtEpochMillis >= 0 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidPayment(data, userId) {
+      return data.ownerUid == userId &&
+             isValidId(data.orderId) &&
+             data.amountPkr is int && data.amountPkr > 0 &&
+             data.paymentMethod in ['CASH', 'JAZZCASH', 'EASYPAISA', 'BANK_TRANSFER', 'OTHER'] &&
+             data.note is string && data.note.size() <= 300 &&
+             isValidId(data.deviceId) &&
+             data.createdAtEpochMillis is int && data.createdAtEpochMillis >= 0 &&
+             data.createdAt is timestamp && data.createdAt <= request.time;
+    }
+
+    match /staff_links/{staffUid} {
+      allow get: if isSignedIn() &&
+                    isValidId(staffUid) &&
+                    (request.auth.uid == staffUid || (resource != null && resource.data.ownerUid == request.auth.uid));
+      allow list: if false;
+
+      allow create: if isSignedIn() &&
+                       request.auth.uid == incoming().ownerUid &&
+                       incoming().keys().hasAll([
+                         'staffUid', 'ownerUid', 'displayName', 'email', 'status', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'staffUid', 'ownerUid', 'displayName', 'email', 'status', 'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidStaffLink(incoming(), staffUid) &&
+                       incoming().status == 'ACTIVE' &&
+                       shopExists(incoming().ownerUid) &&
+                       getAfter(/databases/$(database)/documents/shops/$(incoming().ownerUid)/staff_users/$(staffUid)).data.ownerUid == request.auth.uid &&
+                       getAfter(/databases/$(database)/documents/shops/$(incoming().ownerUid)/staff_users/$(staffUid)).data.status == 'ACTIVE';
+
+      allow update: if isSignedIn() &&
+                       existing().ownerUid == request.auth.uid &&
+                       isValidStaffLink(incoming(), staffUid) &&
+                       incoming().staffUid == existing().staffUid &&
+                       incoming().ownerUid == existing().ownerUid &&
+                       incoming().email == existing().email &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().diff(existing()).affectedKeys().hasOnly([
+                         'displayName', 'status', 'updatedAt'
+                       ]);
+
+      allow delete: if false;
+    }
+
+    match /shops/{userId} {
+      allow get: if isShopMember(userId) && isValidId(userId);
+      allow list: if false;
+
+      allow create: if isShopOwner(userId) &&
+                       isValidId(userId) &&
+                       incoming().keys().hasAll([
+                         'ownerUid', 'shopName', 'contactNumber', 'email',
+                         'nextOrderNumber', 'version', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'ownerUid', 'shopName', 'contactNumber', 'email',
+                         'nextOrderNumber', 'version', 'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidShop(incoming(), userId);
+
+      allow update: if isValidId(userId) &&
+                       isValidShop(incoming(), userId) &&
+                       incoming().ownerUid == existing().ownerUid &&
+                       incoming().createdAt == existing().createdAt &&
+                       incoming().nextOrderNumber >= existing().nextOrderNumber &&
+                       (
+                         // Action 1: Update shop profile (Owner only)
+                         (
+                           isShopOwner(userId) &&
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'shopName', 'contactNumber', 'email', 'version', 'updatedAt'
+                           ])
+                         ) ||
+                         // Action 2: Reserve atomic sequential order number block (Owner or active Staff)
+                         (
+                           isShopMember(userId) &&
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'nextOrderNumber', 'updatedAt'
+                           ])
+                         )
+                       );
+
+      allow delete: if false;
+
+      match /staff_users/{staffUid} {
+        allow get: if (isShopOwner(userId) || (isSignedIn() && request.auth.uid == staffUid)) && isValidId(staffUid);
+        allow list: if isShopOwner(userId);
+
+        allow create: if isShopOwner(userId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'staffUid', 'displayName', 'email', 'role', 'status', 'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'staffUid', 'displayName', 'email', 'role', 'status', 'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidStaffUser(incoming(), userId, staffUid) &&
+                         incoming().status == 'ACTIVE' &&
+                         shopExists(userId) &&
+                         getAfter(/databases/$(database)/documents/staff_links/$(staffUid)).data.ownerUid == userId &&
+                         getAfter(/databases/$(database)/documents/staff_links/$(staffUid)).data.status == 'ACTIVE';
+
+        allow update: if isShopOwner(userId) &&
+                         isValidStaffUser(incoming(), userId, staffUid) &&
+                         incoming().ownerUid == existing().ownerUid &&
+                         incoming().staffUid == existing().staffUid &&
+                         incoming().email == existing().email &&
+                         incoming().role == existing().role &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'displayName', 'status', 'updatedAt'
+                         ]);
+
+        allow delete: if false;
+      }
+
+      match /devices/{deviceId} {
+        allow get: if isValidId(deviceId) &&
+                      (
+                        isShopOwner(userId) ||
+                        (isActiveStaff(userId) && (resource == null || resource.data.userUid == request.auth.uid))
+                      );
+        allow list: if isShopOwner(userId) ||
+                       (isActiveStaff(userId) && resource.data.userUid == request.auth.uid);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(deviceId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'userUid', 'userEmail', 'userRole',
+                           'deviceName', 'deviceRole', 'status',
+                           'appVersion', 'registeredAt', 'lastSeenAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'userUid', 'userEmail', 'userRole',
+                           'deviceName', 'deviceRole', 'status',
+                           'appVersion', 'registeredAt', 'lastSeenAt', 'updatedAt'
+                         ]) &&
+                         incoming().userUid == request.auth.uid &&
+                         (
+                           (isShopOwner(userId) && incoming().userRole == 'OWNER') ||
+                           (isActiveStaff(userId) && incoming().userRole == 'STAFF')
+                         ) &&
+                         incoming().status == 'AUTHORIZED' &&
+                         isValidDevice(incoming(), userId) &&
+                         shopExists(userId);
+
+        allow update: if isValidId(deviceId) &&
+                         (
+                           isShopOwner(userId) ||
+                           (isActiveStaff(userId) && existing().userUid == request.auth.uid)
+                         ) &&
+                         isValidDevice(incoming(), userId) &&
+                         incoming().ownerUid == existing().ownerUid &&
+                         incoming().registeredAt == existing().registeredAt &&
+                         (!('userUid' in existing()) || incoming().userUid == existing().userUid) &&
+                         (!('userRole' in existing()) || incoming().userRole == existing().userRole) &&
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'deviceName', 'deviceRole', 'status', 'appVersion', 'lastSeenAt', 'updatedAt'
+                         ]);
+
+        allow delete: if false;
+      }
+
+      match /order_reservations/{reservationId} {
+        allow get: if isShopMember(userId) && isValidId(reservationId);
+        allow list: if isShopMember(userId);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(reservationId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'deviceId', 'startNumber', 'endNumber', 'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'deviceId', 'startNumber', 'endNumber', 'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidReservation(incoming(), userId) &&
+                         shopExists(userId) &&
+                         isAuthorizedDevice(userId, incoming().deviceId);
+
+        allow update, delete: if false;
+      }
+
+      match /customers/{customerId} {
+        allow get: if isShopMember(userId) && isValidId(customerId);
+        allow list: if isShopMember(userId);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(customerId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'name', 'phone', 'normalizedPhone', 'notes',
+                           'version', 'lastModifiedByDevice', 'deleted',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'name', 'phone', 'normalizedPhone', 'notes', 'customId',
+                           'version', 'lastModifiedByDevice', 'deleted', 'deletedAtMillis',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidCustomer(incoming(), userId) &&
+                         shopExists(userId) &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice);
+
+        allow update: if isShopMember(userId) &&
+                         isValidId(customerId) &&
+                         isValidCustomer(incoming(), userId) &&
+                         incoming().ownerUid == existing().ownerUid &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().createdAtEpochMillis == existing().createdAtEpochMillis &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice) &&
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'name', 'phone', 'normalizedPhone', 'notes', 'customId', 'version',
+                           'lastModifiedByDevice', 'deleted', 'deletedAtMillis',
+                           'updatedAtEpochMillis', 'updatedAt'
+                         ]);
+
+        allow delete: if false;
+      }
+
+      match /measurements/{measurementId} {
+        allow get: if isShopMember(userId) && isValidId(measurementId);
+        allow list: if isShopMember(userId);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(measurementId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'customerId', 'label', 'currentFlag',
+                           'kameezLambai', 'tera', 'bazu', 'chati', 'kamar', 'gheraDaman',
+                           'galaCollar', 'cuff', 'shalwarLambai', 'paincha', 'gheraAsan',
+                           'neckStyle', 'damanStyle', 'pocketStyle', 'sleeveStyle', 'silaiStyle',
+                           'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'customerId', 'label', 'currentFlag',
+                           'kameezLambai', 'tera', 'bazu', 'chati', 'kamar', 'gheraDaman',
+                           'galaCollar', 'cuff', 'shalwarLambai', 'paincha', 'gheraAsan',
+                           'neckStyle', 'damanStyle', 'pocketStyle', 'sleeveStyle', 'silaiStyle',
+                           'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidMeasurement(incoming(), userId) &&
+                         exists(/databases/$(database)/documents/shops/$(userId)/customers/$(incoming().customerId)) &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice);
+
+        allow update: if isShopMember(userId) &&
+                         isValidId(measurementId) &&
+                         isValidMeasurement(incoming(), userId) &&
+                         incoming().ownerUid == existing().ownerUid &&
+                         incoming().customerId == existing().customerId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().createdAtEpochMillis == existing().createdAtEpochMillis &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice) &&
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'label', 'currentFlag',
+                           'kameezLambai', 'tera', 'bazu', 'chati', 'kamar', 'gheraDaman',
+                           'galaCollar', 'cuff', 'shalwarLambai', 'paincha', 'gheraAsan',
+                           'neckStyle', 'damanStyle', 'pocketStyle', 'sleeveStyle', 'silaiStyle',
+                           'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                           'updatedAtEpochMillis', 'updatedAt'
+                         ]);
+
+        allow delete: if false;
+      }
+
+      match /orders/{orderId} {
+        allow get: if isShopMember(userId) && isValidId(orderId);
+        allow list: if isShopMember(userId);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(orderId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'customerId', 'suitCount', 'deliveryDateMillis',
+                           'totalAmountPkr', 'paidAmountPkr', 'remainingAmountPkr',
+                           'orderStatus', 'paymentStatus', 'measurementSnapshot', 'styleSnapshot',
+                           'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'customerId', 'orderNumber', 'suitCount', 'deliveryDateMillis',
+                           'totalAmountPkr', 'paidAmountPkr', 'remainingAmountPkr',
+                           'orderStatus', 'paymentStatus', 'measurementSnapshot', 'styleSnapshot',
+                           'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                           'createdAtEpochMillis', 'updatedAtEpochMillis', 'createdAt', 'updatedAt'
+                         ]) &&
+                         isValidOrder(incoming(), userId) &&
+                         exists(/databases/$(database)/documents/shops/$(userId)/customers/$(incoming().customerId)) &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice);
+
+        allow update: if isShopMember(userId) &&
+                         isValidId(orderId) &&
+                         isValidOrder(incoming(), userId) &&
+                         incoming().ownerUid == existing().ownerUid &&
+                         incoming().customerId == existing().customerId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().createdAtEpochMillis == existing().createdAtEpochMillis &&
+                         incoming().measurementSnapshot == existing().measurementSnapshot &&
+                         incoming().styleSnapshot == existing().styleSnapshot &&
+                         existing().orderStatus != 'CANCELLED' &&
+                         (!(existing().orderStatus in ['DELIVERED', 'CANCELLED']) || incoming().orderStatus == existing().orderStatus) &&
+                         (!('orderNumber' in existing()) || incoming().orderNumber == existing().orderNumber) &&
+                         isAuthorizedDevice(userId, incoming().lastModifiedByDevice) &&
+                         (
+                           // Action 1: Status/order details or pending order number assignment
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'orderNumber', 'suitCount', 'deliveryDateMillis', 'orderStatus',
+                             'notes', 'version', 'lastModifiedByDevice', 'deleted',
+                             'updatedAtEpochMillis', 'updatedAt'
+                           ]) ||
+                           // Action 2: Payment settlement update (immutable snapshots preserved)
+                           incoming().diff(existing()).affectedKeys().hasOnly([
+                             'paidAmountPkr', 'remainingAmountPkr', 'paymentStatus',
+                             'version', 'lastModifiedByDevice', 'updatedAtEpochMillis', 'updatedAt'
+                           ])
+                         );
+
+        allow delete: if false;
+      }
+
+      match /payments/{paymentId} {
+        allow get: if isShopMember(userId) && isValidId(paymentId);
+        allow list: if isShopMember(userId);
+
+        allow create: if isShopMember(userId) &&
+                         isValidId(paymentId) &&
+                         incoming().keys().hasAll([
+                           'ownerUid', 'orderId', 'amountPkr', 'paymentMethod', 'note',
+                           'deviceId', 'createdAtEpochMillis', 'createdAt'
+                         ]) &&
+                         incoming().keys().hasOnly([
+                           'ownerUid', 'orderId', 'amountPkr', 'paymentMethod', 'note',
+                           'deviceId', 'createdAtEpochMillis', 'createdAt'
+                         ]) &&
+                         isValidPayment(incoming(), userId) &&
+                         exists(/databases/$(database)/documents/shops/$(userId)/orders/$(incoming().orderId)) &&
+                         isAuthorizedDevice(userId, incoming().deviceId);
+
+        allow update, delete: if false;
+      }
+    }
+  }
+}

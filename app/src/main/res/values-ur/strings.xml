@@ -1,0 +1,519 @@
+<resources>
+    <string name="app_name">درزی لیجر</string>
+
+    <!-- Navigation Destinations -->
+    <string name="nav_dashboard">ڈیش بورڈ</string>
+    <string name="nav_customers">گاہک</string>
+    <string name="nav_orders">آرڈرز</string>
+    <string name="nav_settings">ترتیبات</string>
+
+    <!-- Common & Status Labels -->
+    <string name="status_offline_ready">آف لائن تیار</string>
+    <string name="status_local_ledger">مقامی کھاتہ فعال</string>
+    <string name="status_pending">زیر التوا</string>
+    <string name="status_ready">تیار</string>
+    <string name="status_delivered">حوالے کر دیا گیا</string>
+    <string name="status_cancelled">منسوخ</string>
+    <string name="status_all">تمام</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_subtitle">جینٹس شلوار قمیض ٹیلرنگ کھاتہ</string>
+    <string name="dashboard_quick_actions">فوری رسائی</string>
+    <string name="dashboard_open_customers">گاہکوں کا ریکارڈ</string>
+    <string name="dashboard_open_customers_desc">نام، موبائل نمبر اور ناپ تلاش کریں</string>
+    <string name="dashboard_open_orders">آرڈرز دیکھیں</string>
+    <string name="dashboard_open_orders_desc">سلائی کی صورتحال، تاریخِ حوالگی اور روپے کا حساب</string>
+    <string name="dashboard_open_settings">دکان اور پرنٹر کی ترتیبات</string>
+    <string name="dashboard_open_settings_desc">دکان کی تفصیلات، 58/80 ملی میٹر پیپر اور تھیم سیٹ کریں</string>
+    <string name="dashboard_today_summary">آج کا خلاصہ</string>
+    <string name="dashboard_pending_orders">زیر التوا آرڈرز</string>
+    <string name="dashboard_due_today">آج کی حوالگی</string>
+    <string name="dashboard_ready_pickup">تیار سوٹ</string>
+    <string name="dashboard_outstanding_pkr">کل بقایا (روپے)</string>
+
+    <!-- Customers -->
+    <string name="customers_search_hint">گاہک کے نام یا 03XX نمبر سے تلاش کریں</string>
+    <string name="customers_empty_title">ابھی کوئی گاہک موجود نہیں</string>
+    <string name="customers_empty_desc">گاہکوں کا ریکارڈ، موبائل نمبر اور شلوار قمیض کے ناپ (انچ میں) یہاں نظر آئیں گے۔</string>
+
+    <!-- Orders -->
+    <string name="orders_search_hint">آرڈر #1001 یا گاہک کے نام سے تلاش کریں</string>
+    <string name="orders_empty_title">ابھی کوئی آرڈر درج نہیں</string>
+    <string name="orders_empty_desc">ترتیب وار آرڈرز (#1001+)، محفوظ ناپ اور ادائیگی کا کھاتہ یہاں ظاہر ہوگا۔</string>
+
+    <!-- Settings -->
+    <string name="settings_shop_section">دکان کی تفصیلات</string>
+    <string name="settings_shop_name_label">دکان کا نام</string>
+    <string name="settings_shop_contact_label">رابطہ نمبر</string>
+    <string name="settings_save_shop">تفصیلات محفوظ کریں</string>
+    <string name="settings_saved_feedback">دکان کی ترتیبات محفوظ ہو گئیں</string>
+    <string name="settings_printer_section">تھرمل پرنٹر کی ترتیبات</string>
+    <string name="settings_paper_width_label">رسید کا سائز</string>
+    <string name="settings_paper_58mm">58 ملی میٹر</string>
+    <string name="settings_paper_80mm">80 ملی میٹر</string>
+    <string name="settings_appearance_section">ظاہری شکل اور زبان</string>
+    <string name="settings_theme_system">سسٹم</string>
+    <string name="settings_theme_light">روشن</string>
+    <string name="settings_theme_dark">تاریک</string>
+    <string name="settings_sync_section">ڈیوائس اور سنک سسٹم</string>
+    <string name="settings_currency_unit">کرنسی: روپے (PKR) • ناپ: انچ</string>
+
+    <!-- Customers & Measurements -->
+    <string name="customer_add_new">نیا گاہک شامل کریں</string>
+    <string name="customer_edit">گاہک میں ترمیم</string>
+    <string name="customer_name_label">پورا نام</string>
+    <string name="customer_phone_label">موبائل نمبر (مثال: 1234567-0300)</string>
+    <string name="customer_notes_label">پتہ / نوٹس (اختیاری)</string>
+    <string name="customer_save">گاہک محفوظ کریں</string>
+    <string name="customer_form_name_hint">نام *</string>
+    <string name="customer_form_phone_hint">فون</string>
+    <string name="customer_form_address_hint">پتہ</string>
+    <string name="customer_form_custom_id_hint">کسٹم آئی ڈی</string>
+    <string name="customer_form_save">محفوظ کریں</string>
+    <string name="customer_form_close_cd">بند کریں</string>
+    <string name="customer_form_id_cd">گاہک آئی ڈی</string>
+    <string name="customer_duplicate_title">یہ گاہک پہلے سے موجود ہے</string>
+    <string name="customer_duplicate_reuse">موجودہ پروفائل کھولیں</string>
+    <string name="customer_duplicate_create_anyway">نیا پروفائل بنائیں</string>
+    <string name="customer_profile_title">گاہک کی تفصیل</string>
+    <string name="customer_current_measurements">موجودہ ناپ (انچ)</string>
+    <string name="customer_no_measurements">ابھی کوئی ناپ درج نہیں کیا گیا۔</string>
+    <string name="customer_add_measurements">ناپ شامل کریں</string>
+    <string name="customer_edit_measurements">ناپ اپ ڈیٹ کریں</string>
+    <string name="customer_measurement_history">ناپ کی تاریخ</string>
+    <string name="customer_order_history">آرڈرز کی تاریخ</string>
+    <string name="customer_no_orders">اس گاہک کا ابھی کوئی آرڈر نہیں ہے۔</string>
+    <string name="customer_select_prompt">تفصیل اور ناپ دیکھنے کے لیے فہرست سے گاہک منتخب کریں۔</string>
+
+    <!-- Kameez & Shalwar Fields -->
+    <string name="measurement_editor_title">شلوار قمیض کا ناپ</string>
+    <string name="measurement_label_hint">ناپ کا عنوان (مثلاً عام، عید سوٹ)</string>
+    <string name="measurement_kameez_section">قمیض (انچ)</string>
+    <string name="measurement_shalwar_section">شلوار (انچ)</string>
+    <string name="measurement_styles_section">سلائی اور ڈیزائن</string>
+    <string name="meas_kameez_lambai">لمبائی</string>
+    <string name="meas_tera">تیرا</string>
+    <string name="meas_bazu">بازو</string>
+    <string name="meas_chati">چھاتی</string>
+    <string name="meas_kamar">کمر</string>
+    <string name="meas_ghera_daman">گھیرا / دامن</string>
+    <string name="meas_gala_collar">گلا / کالر</string>
+    <string name="meas_cuff">کف</string>
+    <string name="meas_shalwar_lambai">شلوار لمبائی</string>
+    <string name="meas_paincha">پانچہ</string>
+    <string name="meas_ghera_asan">گھیرا / آسن</string>
+    <string name="style_neck">گلا</string>
+    <string name="style_daman">دامن</string>
+    <string name="style_pockets">جیبیں</string>
+    <string name="style_sleeves">آستین</string>
+    <string name="style_silai">سلائی</string>
+    <string name="measurement_save">ناپ محفوظ کریں</string>
+    <string name="measurement_saved_feedback">ناپ محفوظ ہو گیا</string>
+    <string name="measurement_reuse_action">نئے طور پر استعمال کریں</string>
+
+    <!-- Orders, Payments & Dashboard -->
+    <string name="order_new_action">نیا آرڈر</string>
+    <string name="order_create_title">نیا آرڈر بنائیں</string>
+    <string name="order_number_pending">نمبر زیر التوا</string>
+    <string name="order_select_customer">گاہک منتخب کریں</string>
+    <string name="order_change_customer">گاہک تبدیل کریں</string>
+    <string name="order_select_measurement">ناپ منتخب کریں</string>
+    <string name="order_measurement_active_badge">فعال</string>
+    <string name="order_suit_count">سوٹ کی تعداد</string>
+    <string name="order_delivery_date">تاریخِ حوالگی</string>
+    <string name="order_billing_section">بلنگ (روپے)</string>
+    <string name="order_total_bill_label">کل بل (روپے)</string>
+    <string name="order_advance_label">پیشگی ادائیگی (روپے)</string>
+    <string name="order_remaining_balance">بقایا رقم</string>
+    <string name="order_save_button">تصدیق کریں اور آرڈر بنائیں</string>
+    <string name="order_detail_title">آرڈر کی تفصیل</string>
+    <string name="order_status_workflow">آرڈر کی صورتحال</string>
+    <string name="order_mark_ready">تیار نشان زد کریں</string>
+    <string name="order_mark_delivered">حوالے کر دیا گیا</string>
+    <string name="order_reopen_pending">واپس زیر التوا کریں</string>
+    <string name="order_cancel_action">آرڈر منسوخ کریں</string>
+    <string name="order_cancel_confirm_title">کیا یہ آرڈر منسوخ کریں؟</string>
+    <string name="order_cancel_confirm_desc">یہ آرڈر تاریخ میں منسوخ کے طور پر محفوظ رہے گا اور حذف نہیں ہوگا۔</string>
+    <string name="order_payments_section">بل اور ادائیگیوں کی تفصیل</string>
+    <string name="order_record_payment">ادائیگی درج کریں</string>
+    <string name="order_pay_remaining_one_tap">پورا بقایا ادا کریں</string>
+    <string name="order_payment_amount_label">ادائیگی کی رقم (روپے)</string>
+    <string name="order_payment_method_label">ادائیگی کا طریقہ</string>
+    <string name="order_payment_note_label">نوٹ (اختیاری)</string>
+    <string name="order_snapshot_section">محفوظ شدہ ناپ اور ڈیزائن</string>
+    <string name="order_snapshot_immutable_hint">آرڈر بناتے وقت محفوظ کیا گیا۔ گاہک کی پروفائل میں تبدیلی سے یہ پرچی نہیں بدلے گی۔</string>
+    <string name="order_update_customer_meas_toggle">گاہک کے موجودہ ناپ کے طور پر بھی محفوظ کریں</string>
+    <string name="dashboard_search_hint">گاہک، فون یا #آرڈر تلاش کریں</string>
+    <string name="dashboard_today_collection">آج کی وصولی</string>
+    <string name="dashboard_recent_orders">حالیہ آرڈرز</string>
+    <string name="dashboard_no_recent_orders">سلائی اور ادائیگیوں کا کھاتہ شروع کرنے کے لیے پہلا آرڈر بنائیں۔</string>
+
+    <!-- Firebase Auth & Device Authorization -->
+    <string name="auth_welcome_title">درزی لیجر</string>
+    <string name="auth_welcome_subtitle">دکان کا مالک اکاؤنٹ اور زیادہ سے زیادہ 2 اسٹاف لاگ ان بنا سکتا ہے۔ ہر صارف ایک وقت میں صرف 1 ڈیوائس پر کام کر سکتا ہے۔</string>
+    <string name="auth_badge_single_device">فی صارف 1 ڈیوائس</string>
+    <string name="auth_badge_shop_roles">مالک + 2 صارفین</string>
+    <string name="auth_tab_sign_in">سائن ان</string>
+    <string name="auth_tab_sign_up">مالک نیا اکاؤنٹ</string>
+    <string name="auth_name_label">دکان یا مالک کا نام</string>
+    <string name="auth_email_label">ای میل ایڈریس</string>
+    <string name="auth_password_label">پاس ورڈ</string>
+    <string name="auth_confirm_password_label">پاس ورڈ کی تصدیق</string>
+    <string name="auth_sign_in_email">ای میل سے سائن ان کریں</string>
+    <string name="auth_sign_up_email">دکان کا مالک اکاؤنٹ بنائیں</string>
+    <string name="auth_forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="auth_or_divider">یا</string>
+    <string name="auth_sign_in_google">گوگل کے ساتھ جاری رکھیں</string>
+    <string name="auth_show_password">پاس ورڈ دکھائیں</string>
+    <string name="auth_hide_password">پاس ورڈ چھپائیں</string>
+    <string name="auth_offline_note">اس ڈیوائس کو دکان سے جوڑنے کے لیے ایک بار آن لائن سائن ان کریں۔ منظور شدہ ڈیوائسز پر کھاتہ آف لائن بھی چلتا ہے۔</string>
+    <string name="device_setup_title">اس ڈیوائس کو منظور کریں</string>
+    <string name="device_setup_subtitle">ہر صارف (مالک یا اسٹاف) ایک وقت میں صرف 1 فعال ڈیوائس استعمال کر سکتا ہے۔</string>
+    <string name="device_name_label">ڈیوائس کا نام (مثلاً کاؤنٹر فون)</string>
+    <string name="device_role_label">ڈیوائس کی قسم</string>
+    <string name="device_role_phone">فون</string>
+    <string name="device_role_tablet">ٹیبلیٹ</string>
+    <string name="device_authorize_button">ڈیوائس منظور کریں</string>
+    <string name="device_limit_title">1 میں سے 1 ڈیوائس پہلے سے فعال ہے</string>
+    <string name="device_limit_desc">ہر صارف بیک وقت صرف 1 ڈیوائس استعمال کر سکتا ہے۔ اس ڈیوائس کو فعال کرنے کے لیے پرانی ڈیوائس ختم کریں یا سائن آؤٹ کریں۔</string>
+    <string name="device_revoked_title">ڈیوائس تک رسائی ختم کر دی گئی</string>
+    <string name="device_revoked_desc">اس ڈیوائس کی رسائی منسوخ کر دی گئی ہے۔ اگر آپ کا سلاٹ خالی ہو تو دوبارہ منظور کریں یا سائن آؤٹ کریں۔</string>
+    <string name="staff_revoked_title">دکان تک رسائی معطل کر دی گئی</string>
+    <string name="staff_revoked_desc">دکان کے مالک نے آپ کا لاگ ان بند کر دیا ہے۔ رسائی بحال کرانے کے لیے مالک سے رابطہ کریں یا سائن آؤٹ کریں۔</string>
+    <string name="device_revoke_action">منسوخ کریں</string>
+    <string name="device_reauthorize_action">دوبارہ منظور کریں</string>
+    <string name="settings_account_section">دکان کا اکاؤنٹ اور ڈیوائسز</string>
+    <string name="settings_sign_out">سائن آؤٹ</string>
+    <string name="role_owner_badge">دکان کا مالک</string>
+    <string name="role_staff_badge">اسٹاف صارف</string>
+    <string name="settings_single_device_policy">پالیسی: فی صارف ایک وقت میں صرف 1 فعال ڈیوائس۔</string>
+    <string name="settings_shop_owner_only_hint">دکان کی تفصیلات صرف دکان کا مالک تبدیل کر سکتا ہے۔</string>
+    <string name="settings_shop_users_section">دکان کے صارفین (زیادہ سے زیادہ 2)</string>
+    <string name="settings_shop_users_count_pill">%2$d میں سے %1$d فعال</string>
+    <string name="settings_shop_users_desc">اسٹاف کے لیے منفرد ای میل اور پاس ورڈ کے ساتھ زیادہ سے زیادہ 2 صارفین بنائیں۔ ہر صارف بیک وقت صرف 1 ڈیوائس استعمال کر سکتا ہے۔</string>
+    <string name="settings_shop_users_loading">صارفین لوڈ ہو رہے ہیں…</string>
+    <string name="settings_shop_users_empty">ابھی کوئی اسٹاف صارف شامل نہیں کیا گیا۔ نیا صارف بنانے کے لیے بٹن دبائیں۔</string>
+    <string name="settings_add_staff_user">نیا صارف شامل کریں</string>
+    <string name="settings_add_staff_user_limit_reached">2 فعال صارفین کی حد مکمل ہو گئی</string>
+    <string name="staff_status_active">فعال</string>
+    <string name="staff_status_disabled">معطل</string>
+    <string name="staff_active_device_label">فعال ڈیوائس: %1$s</string>
+    <string name="staff_no_active_device">کوئی فعال ڈیوائس نہیں</string>
+    <string name="staff_action_disable">معطل کریں</string>
+    <string name="staff_action_reenable">دوبارہ فعال کریں</string>
+    <string name="staff_add_dialog_title">نیا اسٹاف صارف شامل کریں</string>
+    <string name="staff_add_dialog_desc">اس صارف کے لیے منفرد ای میل اور پاس ورڈ درج کریں۔ سائن ان کرنے کے لیے یہ تفصیلات صارف کو دیں۔</string>
+    <string name="staff_name_label">صارف کا پورا نام</string>
+    <string name="staff_create_action">صارف بنائیں</string>
+    <string name="staff_credentials_dialog_title">صارف کا لاگ ان تیار ہے</string>
+    <string name="staff_credentials_dialog_desc">یہ ای میل اور پاس ورڈ صارف کو دے دیں۔ حفاظتی اصول کے تحت بند کرنے کے بعد پاس ورڈ دوبارہ نہیں دکھایا جائے گا۔</string>
+    <string name="staff_credentials_copy_payload">درزی لیجر لاگ ان\nنام: %1$s\nای میل: %2$s\nپاس ورڈ: %3$s</string>
+    <string name="staff_credentials_copy_button">تفصیلات کاپی کریں</string>
+    <string name="staff_credentials_copied">لاگ ان تفصیلات کاپی ہو گئیں۔</string>
+
+    <!-- Cloud Sync & Conflicts -->
+    <string name="sync_screen_title">کلاؤڈ سنک اور تضادات</string>
+    <string name="sync_now_button">ابھی سنک کریں</string>
+    <string name="sync_reserve_block_button">#1001+ نمبر بلاک حاصل کریں</string>
+    <string name="sync_status_synced">سنک مکمل</string>
+    <string name="sync_status_syncing">سنک ہو رہا ہے…</string>
+    <string name="sync_status_offline">آف لائن</string>
+    <string name="sync_status_pending">زیر التوا (%1$d)</string>
+    <string name="sync_status_conflict">تضاد (%1$d)</string>
+    <string name="sync_conflicts_section">توجہ طلب تضادات</string>
+    <string name="sync_conflicts_empty">کوئی تضاد نہیں ملا۔ دونوں ڈیوائسز ہم آہنگ ہیں۔</string>
+    <string name="sync_keep_local">مقامی رکھیں</string>
+    <string name="sync_use_cloud">کلاؤڈ والا استعمال کریں</string>
+    <string name="sync_reservations_section">آرڈر نمبر بلاکس (#1001+)</string>
+    <string name="sync_reservations_empty">ابھی کوئی آف لائن آرڈر نمبر بلاک محفوظ نہیں۔ 50 نمبر حاصل کرنے کے لیے آن لائن سنک کریں۔</string>
+    <string name="settings_sync_center_title">کلاؤڈ سنکرونائزیشن</string>
+    <string name="settings_open_sync_center">سنک اور تضادات کھولیں</string>
+
+    <!-- Bluetooth Thermal Printing -->
+    <string name="printer_configured_label">منتخب پرنٹر: %1$s (%2$s)</string>
+    <string name="printer_none_configured">ابھی کوئی بلوٹوتھ تھرمل پرنٹر منتخب نہیں کیا گیا۔</string>
+    <string name="printer_select_button">بلوٹوتھ پرنٹر منتخب کریں</string>
+    <string name="printer_test_print_button">ٹیسٹ پرنٹ</string>
+    <string name="printer_scan_nearby">قریبی تلاش کریں</string>
+    <string name="printer_open_bt_settings">بلوٹوتھ ترتیبات</string>
+    <string name="printer_picker_title">بلوٹوتھ تھرمل پرنٹرز</string>
+    <string name="printer_permission_required">تھرمل پرنٹرز سے منسلک ہونے کے لیے بلوٹوتھ اجازت درکار ہے۔</string>
+    <string name="order_printing_section">تھرمل رسید اور کاریگر پرچی</string>
+    <string name="order_print_customer">گاہک کی رسید پرنٹ کریں</string>
+    <string name="order_print_karigar">کاریگر پرچی پرنٹ کریں</string>
+    <string name="order_preview_slip">پرچی دیکھیں</string>
+
+    <!-- JSON Backup & Restore -->
+    <string name="settings_backup_section">ڈیٹا بیک اپ اور بحالی</string>
+    <string name="settings_backup_desc">تمام گاہک، ناپ، آرڈرز اور روپے کی ادائیگیاں JSON فائل میں محفوظ کریں یا بیک اپ سے بحال کریں۔</string>
+    <string name="settings_export_backup">بیک اپ محفوظ کریں (JSON)</string>
+    <string name="settings_restore_backup">بیک اپ بحال کریں</string>
+    <string name="backup_restore_dialog_title">دکان کا بیک اپ بحال کریں؟</string>
+    <string name="backup_restore_confirm_button">بیک اپ بحال کریں</string>
+
+    <string name="order_preview_customer_button">گاہک رسید دیکھیں</string>
+    <string name="order_preview_karigar_button">کاریگر پرچی دیکھیں</string>
+    <string name="order_preview_customer_title">گاہک کی رسید کا پیش منظر</string>
+    <string name="order_preview_karigar_title">کاریگر ورکشاپ پرچی کا پیش منظر</string>
+    <string name="action_print_now">ابھی پرنٹ کریں</string>
+
+    <!-- Language & Localization -->
+    <string name="settings_language_label">ایپ کی زبان</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_urdu">اردو</string>
+    <string name="settings_language_hint">ایپ اسکرینز، رسید کا پیش منظر اور پرنٹ ہونے والی پرچیاں منتخب زبان کے مطابق ہوں گی۔</string>
+    <string name="settings_language_owner_only_hint">ایپ کی زبان صرف دکان کا مالک تبدیل کر سکتا ہے۔</string>
+    <string name="settings_sync_center_desc">زیر التوا تبدیلیاں، #1001+ آرڈر نمبر بلاکس اور کثیر ڈیوائس تضادات دیکھیں۔</string>
+    <string name="action_cancel">منسوخ کریں</string>
+    <string name="action_close">بند کریں</string>
+
+    <!-- Dashboard Analytics (Daily / Weekly / Monthly / Yearly) -->
+    <string name="analytics_section_title">کاروباری تجزیہ</string>
+    <string name="analytics_daily">روزانہ</string>
+    <string name="analytics_weekly">ہفتہ وار</string>
+    <string name="analytics_monthly">ماہانہ</string>
+    <string name="analytics_yearly">سالانہ</string>
+    <string name="analytics_period_today">آج</string>
+    <string name="analytics_period_week">اس ہفتے</string>
+    <string name="analytics_period_month">اس ماہ</string>
+    <string name="analytics_period_year">اس سال</string>
+    <string name="analytics_collected_label">وصولی</string>
+    <string name="analytics_booked_label">کل بکنگ</string>
+    <string name="analytics_orders_label">آرڈرز</string>
+    <string name="analytics_suits_label">سوٹ</string>
+    <string name="analytics_delivered_count">%1$d حوالے</string>
+    <string name="analytics_trend_title">وصولی بمقابلہ بکنگ رجحان</string>
+    <string name="analytics_empty_hint">اس مدت میں ابھی کوئی آرڈر یا ادائیگی درج نہیں ہوئی۔</string>
+    <string name="analytics_bucket_night">رات</string>
+    <string name="analytics_bucket_morning">صبح</string>
+    <string name="analytics_bucket_afternoon">دوپہر</string>
+    <string name="analytics_bucket_evening">شام</string>
+    <string name="analytics_week_prefix">ہفتہ %1$d</string>
+    <string name="dashboard_all_orders">تمام آرڈرز</string>
+    <string name="dashboard_matching_customers">ملتے جلتے گاہک</string>
+    <string name="dashboard_matching_orders">ملتے جلتے آرڈرز</string>
+    <string name="dashboard_clear_search">تلاش صاف کریں</string>
+    <string name="dashboard_customers_pill">%1$d گاہک • %2$s</string>
+
+    <!-- Landing Grid, Drawer & Payments Sheet -->
+    <string name="dashboard_tile_customers">گاہک</string>
+    <string name="dashboard_tile_payments">ادائیگیاں</string>
+    <string name="dashboard_tile_orders">آرڈرز</string>
+    <string name="dashboard_tile_ledger">کھاتہ</string>
+    <string name="dashboard_action_add_customer">+ نیا گاہک</string>
+    <string name="dashboard_action_add_order">+ نیا آرڈر</string>
+    <string name="dashboard_menu_open">مینو کھولیں</string>
+    <string name="drawer_nav_analytics">کھاتہ اور تجزیہ</string>
+    <string name="drawer_nav_payments">ادائیگیاں اور بقایا</string>
+    <string name="drawer_nav_sync">کلاؤڈ سنک</string>
+    <string name="payments_sheet_title">ادائیگیاں اور بقایا</string>
+    <string name="payments_filter_balance_due">بقایا باقی</string>
+    <string name="payments_filter_paid">وصول شدہ ادائیگیاں</string>
+    <string name="payments_empty_due">تمام فعال آرڈرز کی ادائیگی مکمل ہے۔</string>
+    <string name="payments_empty_paid">ابھی کوئی ادائیگی درج نہیں ہوئی۔</string>
+    <string name="payments_tap_to_record">ادائیگی درج کرنے کے لیے آرڈر پر ٹیپ کریں</string>
+    <string name="payments_paid_of_total">کل %2$s میں سے %1$s ادا</string>
+    <string name="payments_due_amount">بقایا: %1$s</string>
+
+    <!-- Customers Screen Redesign -->
+    <string name="customers_search_simple_hint">گاہک تلاش کریں…</string>
+    <string name="customers_filter_button">فلٹر</string>
+    <string name="customers_search_by_label">تلاش بذریعہ</string>
+    <string name="customers_scope_all">تمام</string>
+    <string name="customers_scope_name">نام</string>
+    <string name="customers_scope_phone">فون</string>
+    <string name="customers_scope_id">آئی ڈی</string>
+    <string name="customers_scope_address">پتہ</string>
+    <string name="customers_total_count">کل گاہک: %1$d</string>
+    <string name="customers_id_badge">آئی ڈی: %1$s</string>
+    <string name="customers_sort_newest">نئے پہلے</string>
+    <string name="customers_sort_oldest">پرانے پہلے</string>
+    <string name="customers_sort_name">نام کے مطابق</string>
+    <string name="customers_filter_with_address">صرف پتے والے</string>
+
+    <!-- Orders & Order Details Redesign -->
+    <string name="orders_search_simple_hint">آرڈرز تلاش کریں…</string>
+    <string name="orders_filters_button">فلٹرز</string>
+    <string name="orders_total_count">کل آرڈرز: %1$d</string>
+    <string name="orders_order_id_label">آرڈر آئی ڈی: %1$s</string>
+    <string name="orders_customer_id_label">گاہک آئی ڈی: %1$s</string>
+    <string name="orders_metric_quantity">تعداد</string>
+    <string name="orders_metric_cost">کل قیمت</string>
+    <string name="orders_metric_pending_amount">بقایا رقم</string>
+    <string name="orders_metric_delivery_date">تاریخِ حوالگی</string>
+    <string name="orders_filter_pending_balance">صرف بقایا والے</string>
+    <string name="orders_sort_delivery">قریبی حوالگی</string>
+
+    <string name="order_detail_id_pill">آئی ڈی: %1$s</string>
+    <string name="order_detail_date_created">آرڈر کی تاریخ</string>
+    <string name="order_detail_delivery_date">تاریخِ حوالگی</string>
+    <string name="order_detail_quantity">تعداد</string>
+    <string name="order_detail_pending_amount">بقایا رقم</string>
+    <string name="order_detail_total_cost">کل قیمت</string>
+    <string name="order_detail_status_label">حالت</string>
+    <string name="order_detail_payment_not_paid">ادائیگی باقی</string>
+    <string name="order_detail_payment_partial">جزوی ادائیگی</string>
+    <string name="order_detail_payment_paid">ادا شدہ</string>
+    <string name="order_detail_additional_note">اضافی نوٹ</string>
+    <string name="order_detail_no_note">کوئی اضافی نوٹ نہیں</string>
+    <string name="order_detail_actions_title">کارروائیاں</string>
+    <string name="order_action_mark_paid">مکمل ادا</string>
+    <string name="order_action_partial_payment">جزوی ادائیگی</string>
+    <string name="order_action_delete">حذف کریں</string>
+    <string name="order_action_view_receipt">گاہک رسید دیکھیں</string>
+    <string name="order_tab_payments">ادائیگیاں</string>
+    <string name="order_tab_measurement">ناپ</string>
+    <string name="order_tab_media">تصاویر</string>
+    <string name="order_payment_item_amount">رقم: %1$s</string>
+    <string name="order_payment_item_date">ادائیگی کی تاریخ: %1$s</string>
+    <string name="order_payments_empty">اس آرڈر کے لیے ابھی کوئی ادائیگی درج نہیں ہوئی۔</string>
+    <string name="order_media_add_photo">تصویر شامل کریں</string>
+    <string name="order_media_empty">ابھی کوئی کپڑے یا ڈیزائن کی تصویر شامل نہیں کی گئی۔</string>
+    <string name="order_media_remove_cd">تصویر ہٹائیں</string>
+    <string name="order_delete_confirm_title">آرڈر حذف یا منسوخ کریں؟</string>
+    <string name="order_delete_confirm_desc">حذف کرنے سے یہ آرڈر فعال کھاتے سے ہٹ جائے گا۔ تاریخ میں رکھنے کے لیے منسوخ بھی کر سکتے ہیں۔</string>
+    <string name="order_delete_forever_button">آرڈر حذف کریں</string>
+    <string name="order_keep_button">آرڈر برقرار رکھیں</string>
+
+    <!-- Customer Detail & Measurement Options Redesign -->
+    <string name="customer_detail_topbar_title">گاہک</string>
+    <string name="customer_since_label">گاہک از: %1$s</string>
+    <string name="customer_action_call">کال</string>
+    <string name="customer_action_whatsapp">واٹس ایپ</string>
+    <string name="customer_tab_measurements">ناپ</string>
+    <string name="customer_tab_payments">ادائیگیاں</string>
+    <string name="customer_tab_orders">آرڈرز</string>
+    <string name="customer_measurements_section">ناپ</string>
+    <string name="measurement_type_male_shalwar_kameez">مردانہ شلوار قمیض</string>
+    <string name="measurement_label_kameez_length">قمیض لمبائی</string>
+    <string name="measurement_label_shoulder">تیرا</string>
+    <string name="measurement_label_chest">چھاتی</string>
+    <string name="measurement_label_sleeves">بازو</string>
+    <string name="measurement_label_waist">کمر</string>
+    <string name="measurement_label_ghera_daman">گھیرا / دامن</string>
+    <string name="measurement_label_collar_gala">گلا / کالر</string>
+    <string name="measurement_label_cuff">کف</string>
+    <string name="measurement_label_shalwar">شلوار</string>
+    <string name="measurement_label_paincha">پانچہ</string>
+    <string name="measurement_label_asan">آسن</string>
+    <string name="measurement_options_title">اختیارات</string>
+    <string name="measurement_option_edit">ترمیم</string>
+    <string name="measurement_option_save">محفوظ کریں</string>
+    <string name="measurement_option_print">پرنٹ</string>
+    <string name="measurement_option_delete">حذف کریں</string>
+    <string name="measurement_saved_active_msg">فعال ناپ کے طور پر محفوظ کر دیا گیا۔</string>
+    <string name="measurement_delete_confirm_title">ناپ حذف کریں؟</string>
+    <string name="measurement_delete_confirm_desc">یہ ناپ کارڈ گاہک کی فہرست سے ہٹ جائے گا۔ پرانے آرڈرز محفوظ رہیں گے۔</string>
+    <string name="measurement_delete_confirm_button">حذف کریں</string>
+    <string name="measurement_preview_title">ناپ کی پرچی کا پیش منظر</string>
+    <string name="customer_delete_action">گاہک حذف کریں</string>
+    <string name="customer_delete_confirm_title">گاہک حذف کریں؟</string>
+    <string name="customer_delete_confirm_desc">یہ گاہک فعال فہرست سے ہٹ جائے گا۔</string>
+    <string name="customer_payments_empty">اس گاہک کے آرڈرز پر ابھی کوئی ادائیگی درج نہیں ہوئی۔</string>
+    <string name="customer_payment_order_pill">آرڈر #%1$s</string>
+    <string name="customer_whatsapp_error">اس ڈیوائس پر واٹس ایپ نہیں کھل سکا۔</string>
+    <string name="customer_more_options_cd">مزید اختیارات</string>
+    <string name="style_opt_collar">کالر</string>
+    <string name="style_opt_ban">بین</string>
+    <string name="style_opt_half_ban">ہاف بین</string>
+    <string name="style_opt_round">گول گلا</string>
+    <string name="style_opt_daman_gol">گول دامن</string>
+    <string name="style_opt_daman_chorasi">چورس دامن</string>
+    <string name="style_opt_pocket_front">سامنے جیب</string>
+    <string name="style_opt_pocket_one_side">ایک سائیڈ جیب</string>
+    <string name="style_opt_pocket_two_side">ڈبل سائیڈ جیب</string>
+    <string name="style_opt_pocket_shalwar">شلوار جیب</string>
+    <string name="style_opt_pocket_none">کوئی جیب نہیں</string>
+    <string name="style_opt_sleeve_plain">سادہ آستین</string>
+    <string name="style_opt_sleeve_single_cuff">سنگل کف</string>
+    <string name="style_opt_sleeve_double_cuff">ڈبل کف</string>
+    <string name="style_opt_sleeve_studs">اسٹڈ کاج</string>
+    <string name="style_opt_silai_single">سنگل سلائی</string>
+    <string name="style_opt_silai_double">ڈبل سلائی</string>
+    <string name="style_opt_silai_chamak">چمک دھاگہ</string>
+
+    <!-- Full Localization Coverage -->
+    <string name="action_back">واپس</string>
+    <string name="action_ok">ٹھیک ہے</string>
+    <string name="action_retry">دوبارہ کوشش کریں</string>
+    <string name="currency_pkr_prefix">روپے\u0020</string>
+    <string name="unit_inches">انچ</string>
+    <string name="unit_in_short">انچ</string>
+
+    <string name="payment_method_cash">نقد</string>
+    <string name="payment_method_jazzcash">جاز کیش</string>
+    <string name="payment_method_easypaisa">ایزی پیسہ</string>
+    <string name="payment_method_bank_transfer">بینک ٹرانسفر</string>
+    <string name="payment_method_other">دیگر</string>
+
+    <string name="customer_duplicate_desc_primary">%1$s (%2$s) اس موبائل نمبر کے ساتھ پہلے سے درج ہیں۔</string>
+    <string name="customer_duplicate_desc_secondary">تمام ناپ اور آرڈر کا ریکارڈ ایک جگہ رکھنے کے لیے موجودہ پروفائل کھولیں، یا الگ پروفائل بنائیں۔</string>
+
+    <string name="order_loaded_label_meas">\u0020• %1$s لوڈ ہوگیا</string>
+    <string name="order_loaded_saved_meas">\u0020• محفوظ ناپ لوڈ ہوگیا</string>
+    <string name="order_loaded_no_meas">\u0020• ابھی کوئی محفوظ ناپ نہیں</string>
+    <string name="order_decrease_suits_cd">سوٹ کم کریں</string>
+    <string name="order_increase_suits_cd">سوٹ بڑھائیں</string>
+    <string name="order_preset_tomorrow">کل</string>
+    <string name="order_preset_plus_3_days">+3 دن</string>
+    <string name="order_preset_plus_7_days">+7 دن</string>
+    <string name="order_calendar_button">کیلنڈر</string>
+    <string name="order_pick_customer_search_hint">نام یا فون تلاش کریں</string>
+    <string name="order_payment_outstanding_balance">بقایا رقم: %1$s</string>
+    <string name="order_payment_save_button">ادائیگی محفوظ کریں</string>
+
+    <string name="printer_status_not_set">سیٹ نہیں</string>
+    <string name="order_printer_configured">پرنٹر: %1$s (%2$s)</string>
+    <string name="order_printer_unconfigured">براہ راست پرنٹ کے لیے سیٹنگز میں بلوٹوتھ پرنٹر منتخب کریں۔ پرچی کا پیش منظر کسی بھی وقت دیکھیں۔</string>
+
+    <string name="settings_device_status_checking">جانچ جاری</string>
+    <string name="settings_device_status_unregistered">غیر رجسٹرڈ</string>
+    <string name="settings_device_status_pending">زیر التواء</string>
+    <string name="settings_device_status_authorized">منظور شدہ</string>
+    <string name="settings_device_status_revoked">منسوخ شدہ</string>
+    <string name="settings_devices_loading">دکان کی ڈیوائسز لوڈ ہو رہی ہیں…</string>
+    <string name="settings_devices_empty">ابھی کوئی کلاؤڈ ڈیوائس رجسٹر نہیں ہے۔</string>
+    <string name="backup_restore_shop_name">دکان: %1$s</string>
+    <string name="backup_restore_exported_at">ایکسپورٹ وقت: %1$s</string>
+    <string name="backup_restore_counts">• %1$d گاہک\n• %2$d ناپ\n• %3$d آرڈرز\n• %4$d ادائیگیاں</string>
+    <string name="backup_restore_safety_note">ریکارڈز کی مکمل جانچ کے بعد محفوظ طریقے سے بحال کیا جاتا ہے تاکہ موجودہ ڈیٹا ادھورا نہ رہے۔</string>
+    <string name="staff_credentials_email">ای میل: %1$s</string>
+    <string name="staff_credentials_password">پاس ورڈ: %1$s</string>
+    <string name="printer_none_found_hint">کوئی پیئرڈ پرنٹر نہیں ملا۔ اینڈرائیڈ بلوٹوتھ سیٹنگز میں اپنا تھرمل پرنٹر پیئر کریں یا قریبی اسکین پر ٹیپ کریں۔</string>
+    <string name="printer_pill_selected">منتخب</string>
+    <string name="printer_pill_paired">پیئرڈ</string>
+    <string name="printer_pill_nearby">قریبی</string>
+
+    <string name="sync_network_online">آن لائن</string>
+    <string name="sync_network_offline">آف لائن موڈ</string>
+    <string name="sync_pending_local_changes">زیر التواء مقامی تبدیلیاں: %1$d</string>
+    <string name="sync_last_synced_at">آخری سنک: %1$s</string>
+    <string name="sync_last_synced_never">آخری سنک: ابھی سنک نہیں ہوا</string>
+    <string name="sync_block_exhausted">ختم ہوگیا</string>
+    <string name="sync_block_next_available">اگلا دستیاب نمبر: #%1$d</string>
+    <string name="sync_block_remaining">%1$d باقی</string>
+    <string name="sync_conflict_title">%1$s تعارض</string>
+    <string name="sync_entity_shop">دکان</string>
+    <string name="sync_entity_customer">گاہک</string>
+    <string name="sync_entity_measurement">ناپ</string>
+    <string name="sync_entity_order">آرڈر</string>
+    <string name="sync_entity_payment">ادائیگی</string>
+    <string name="sync_entity_device">ڈیوائس</string>
+    <string name="sync_entity_reservation">آرڈر بلاک</string>
+
+    <string name="device_checking_auth">دکان کی ڈیوائس کی منظوری کی تصدیق ہو رہی ہے…</string>
+    <string name="device_verification_failed">تصدیق ناکام ہوگئی</string>
+    <string name="device_this_device_suffix">\u0020(یہ ڈیوائس)</string>
+    <string name="device_user_role_staff">عملہ</string>
+    <string name="device_user_role_owner">مالک</string>
+    <string name="device_status_authorized">منظور شدہ</string>
+    <string name="device_status_revoked">منسوخ شدہ</string>
+
+    <string name="auth_error_invalid_email">براہ کرم درست ای میل پتہ درج کریں۔</string>
+    <string name="auth_error_empty_password">براہ کرم اپنا پاس ورڈ درج کریں۔</string>
+    <string name="auth_error_short_password">پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے۔</string>
+    <string name="auth_error_passwords_mismatch">پاس ورڈ آپس میں مطابقت نہیں رکھتے۔</string>
+    <string name="auth_error_reset_email_required">ری سیٹ لنک حاصل کرنے کے لیے پہلے اوپر اپنا ای میل پتہ درج کریں۔</string>
+    <string name="auth_info_reset_sent">پاس ورڈ ری سیٹ لنک %1$s پر بھیج دیا گیا ہے۔</string>
+    <string name="auth_error_reset_failed">پاس ورڈ ری سیٹ ای میل نہیں بھیجی جا سکی۔</string>
+</resources>
